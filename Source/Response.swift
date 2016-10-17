@@ -24,7 +24,7 @@ open class Response: NSObject {
         return error == nil && (statusCode == 200 || statusCode == 201)
     }
     
-    open init(URLRequest: URLRequest?, response: URLResponse?) {
+    public init(URLRequest: URLRequest?, response: URLResponse?) {
         super.init()
         
         self.URLRequest = URLRequest
