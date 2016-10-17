@@ -1,0 +1,18 @@
+PODS:
+  - Alamofire (4.0.1)
+  - ObjectMapper (2.1.0)
+  - ReachabilitySwift (3)
+
+DEPENDENCIES:
+  - Alamofire
+  - ObjectMapper
+  - ReachabilitySwift
+
+SPEC CHECKSUMS:
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  ObjectMapper: e5e0f8aef8590fc2ddcde7f27eddb255863ee6e9
+  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+
+PODFILE CHECKSUM: d972d62383fce6974539132104ec17dbd4c4a93d
+
+COCOAPODS: 1.1.0.rc.2
