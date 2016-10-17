@@ -18,6 +18,7 @@
 		792A76651DB4B8BD00BEEEF1 /* MappableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A76601DB4B8BD00BEEEF1 /* MappableModel.swift */; };
 		792A76661DB4B8BD00BEEEF1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A76611DB4B8BD00BEEEF1 /* NetworkManager.swift */; };
 		792A76671DB4B8BD00BEEEF1 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A76621DB4B8BD00BEEEF1 /* Response.swift */; };
+		792A76751DB50E0C00BEEEF1 /* NetworkManager.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 792A76741DB50E0C00BEEEF1 /* NetworkManager.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		792A76601DB4B8BD00BEEEF1 /* MappableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableModel.swift; sourceTree = "<group>"; };
 		792A76611DB4B8BD00BEEEF1 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		792A76621DB4B8BD00BEEEF1 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		792A76741DB50E0C00BEEEF1 /* NetworkManager.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NetworkManager.podspec; sourceTree = "<group>"; };
 		FB4EA7ED7C8840110BAC2F67 /* Pods_Network_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Network_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -61,6 +63,7 @@
 		792A76341DB4B2DD00BEEEF1 = {
 			isa = PBXGroup;
 			children = (
+				792A76741DB50E0C00BEEEF1 /* NetworkManager.podspec */,
 				792A763F1DB4B2DD00BEEEF1 /* Network Manager */,
 				792A763E1DB4B2DD00BEEEF1 /* Products */,
 				A6467DB8A9BD34311C799D42 /* Pods */,
@@ -176,6 +179,7 @@
 				792A764B1DB4B2DD00BEEEF1 /* LaunchScreen.storyboard in Resources */,
 				792A76481DB4B2DD00BEEEF1 /* Assets.xcassets in Resources */,
 				792A76461DB4B2DD00BEEEF1 /* Main.storyboard in Resources */,
+				792A76751DB50E0C00BEEEF1 /* NetworkManager.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

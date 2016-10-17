@@ -65,11 +65,11 @@ internal class NetworkManager: NSObject {
         case json, formData
     }
     
-    var prefferedPostDataType: POSTDataType = .json
+    public var prefferedPostDataType: POSTDataType = .json
     
-    static let sharedInstance = NetworkManager()
+    public static let sharedInstance = NetworkManager()
     
-    var authHttpHeaderFields: [String: String] = [:]
+    public var authHttpHeaderFields: [String: String] = [:]
     
     override init() {
         super.init()
@@ -77,25 +77,25 @@ internal class NetworkManager: NSObject {
         initReachibility()
     }
 
-    @discardableResult class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, mapArrayPath: String? = nil, complete: (([T]?, AppError?) -> Void)? = nil) -> NetworkRequest? {
+    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, mapArrayPath: String? = nil, complete: (([T]?, AppError?) -> Void)? = nil) -> NetworkRequest? {
         return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
             complete?(respose.mapArray(path: mapArrayPath), respose.error)
         }
     }
     
-    @discardableResult class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((T?, AppError?) -> Void)? = nil) -> NetworkRequest? {
+    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((T?, AppError?) -> Void)? = nil) -> NetworkRequest? {
         return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
             complete?(respose.map(), respose.error)
         }
     }
     
-    @discardableResult class func simpleRequest(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((AppError?) -> Void)? = nil) -> NetworkRequest? {
+    @discardableResult public class func simpleRequest(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((AppError?) -> Void)? = nil) -> NetworkRequest? {
         return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
             complete?(respose.error)
         }
     }
     
-    @discardableResult class func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
+    @discardableResult public class func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
         return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress, complete: complete)
     }
     
@@ -395,11 +395,11 @@ internal class NetworkManager: NSObject {
         }
     }
     
-    class func setAuthHeader(value: String, key: String) {
+    public class func setAuthHeader(value: String, key: String) {
         sharedInstance.authHttpHeaderFields[key] = value
     }
     
-    class func clearAuthHeaderFields() {
+    public class func clearAuthHeaderFields() {
         sharedInstance.authHttpHeaderFields = [:]
     }
 }
