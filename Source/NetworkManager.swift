@@ -53,7 +53,7 @@ public enum NetworkManagerError: String {
     case internetConnection = "INTERNET_CONNECTION"
 }
 
-open class NetworkManager: NSObject {
+public class NetworkManager: NSObject {
     
     var reachability = Reachability()
     
@@ -61,7 +61,7 @@ open class NetworkManager: NSObject {
     
     let logRequest = true
     
-    enum POSTDataType {
+    public enum POSTDataType {
         case json, formData
     }
     
