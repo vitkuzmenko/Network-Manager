@@ -53,7 +53,7 @@ public enum NetworkManagerError: String {
     case internetConnection = "INTERNET_CONNECTION"
 }
 
-internal class NetworkManager: NSObject {
+open class NetworkManager: NSObject {
     
     var reachability = Reachability()
     
