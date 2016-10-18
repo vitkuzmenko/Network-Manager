@@ -246,6 +246,7 @@ public class NetworkManager: NSObject {
     fileprivate func fillParametersForMultipartDataType(_ parameters: [String: Any]?, toRequest request: inout URLRequest) {
         guard let parameters = parameters else { return }
         let multipart = MultipartFormData()
+        
         for (key, value) in parameters {
             if let data = value as? Data {
                 multipart.append(data, withName: key)
