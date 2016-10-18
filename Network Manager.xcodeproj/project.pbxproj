@@ -13,12 +13,14 @@
 		792A76461DB4B2DD00BEEEF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792A76441DB4B2DD00BEEEF1 /* Main.storyboard */; };
 		792A76481DB4B2DD00BEEEF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 792A76471DB4B2DD00BEEEF1 /* Assets.xcassets */; };
 		792A764B1DB4B2DD00BEEEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792A76491DB4B2DD00BEEEF1 /* LaunchScreen.storyboard */; };
-		792A76631DB4B8BD00BEEEF1 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A765E1DB4B8BD00BEEEF1 /* AppError.swift */; };
+		792A76631DB4B8BD00BEEEF1 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A765E1DB4B8BD00BEEEF1 /* ResponseError.swift */; };
 		792A76641DB4B8BD00BEEEF1 /* DictionarySerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A765F1DB4B8BD00BEEEF1 /* DictionarySerializer.swift */; };
 		792A76651DB4B8BD00BEEEF1 /* MappableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A76601DB4B8BD00BEEEF1 /* MappableModel.swift */; };
 		792A76661DB4B8BD00BEEEF1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A76611DB4B8BD00BEEEF1 /* NetworkManager.swift */; };
 		792A76671DB4B8BD00BEEEF1 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A76621DB4B8BD00BEEEF1 /* Response.swift */; };
 		792A76751DB50E0C00BEEEF1 /* NetworkManager.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 792A76741DB50E0C00BEEEF1 /* NetworkManager.podspec */; };
+		79442C2E1DB6029A005197C0 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79442C2D1DB6029A005197C0 /* NetworkRequest.swift */; };
+		79442C301DB602BF005197C0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79442C2F1DB602BF005197C0 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,12 +33,14 @@
 		792A76471DB4B2DD00BEEEF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		792A764A1DB4B2DD00BEEEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		792A764C1DB4B2DD00BEEEF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		792A765E1DB4B8BD00BEEEF1 /* AppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		792A765E1DB4B8BD00BEEEF1 /* ResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		792A765F1DB4B8BD00BEEEF1 /* DictionarySerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionarySerializer.swift; sourceTree = "<group>"; };
 		792A76601DB4B8BD00BEEEF1 /* MappableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableModel.swift; sourceTree = "<group>"; };
 		792A76611DB4B8BD00BEEEF1 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		792A76621DB4B8BD00BEEEF1 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		792A76741DB50E0C00BEEEF1 /* NetworkManager.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NetworkManager.podspec; sourceTree = "<group>"; };
+		79442C2D1DB6029A005197C0 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		79442C2F1DB602BF005197C0 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		FB4EA7ED7C8840110BAC2F67 /* Pods_Network_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Network_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,11 +100,13 @@
 		792A765D1DB4B8BD00BEEEF1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				792A765E1DB4B8BD00BEEEF1 /* AppError.swift */,
+				792A765E1DB4B8BD00BEEEF1 /* ResponseError.swift */,
 				792A765F1DB4B8BD00BEEEF1 /* DictionarySerializer.swift */,
 				792A76601DB4B8BD00BEEEF1 /* MappableModel.swift */,
+				79442C2D1DB6029A005197C0 /* NetworkRequest.swift */,
 				792A76611DB4B8BD00BEEEF1 /* NetworkManager.swift */,
 				792A76621DB4B8BD00BEEEF1 /* Response.swift */,
+				79442C2F1DB602BF005197C0 /* Helpers.swift */,
 			);
 			path = Source;
 			sourceTree = SOURCE_ROOT;
@@ -240,10 +246,12 @@
 			files = (
 				792A76661DB4B8BD00BEEEF1 /* NetworkManager.swift in Sources */,
 				792A76431DB4B2DD00BEEEF1 /* ViewController.swift in Sources */,
+				79442C2E1DB6029A005197C0 /* NetworkRequest.swift in Sources */,
 				792A76651DB4B8BD00BEEEF1 /* MappableModel.swift in Sources */,
+				79442C301DB602BF005197C0 /* Helpers.swift in Sources */,
 				792A76641DB4B8BD00BEEEF1 /* DictionarySerializer.swift in Sources */,
 				792A76411DB4B2DD00BEEEF1 /* AppDelegate.swift in Sources */,
-				792A76631DB4B8BD00BEEEF1 /* AppError.swift in Sources */,
+				792A76631DB4B8BD00BEEEF1 /* ResponseError.swift in Sources */,
 				792A76671DB4B8BD00BEEEF1 /* Response.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

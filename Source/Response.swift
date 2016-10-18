@@ -16,7 +16,7 @@ open class Response: NSObject {
     
     open var JSON: Any?
     
-    open var error: AppError?
+    open var error: ResponseError?
     
     open var statusCode: Int = 0
     

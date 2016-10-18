@@ -10,44 +10,6 @@ import ObjectMapper
 import Alamofire
 import ReachabilitySwift
 
-open class NetworkRequest {
-    
-    var _request: Request
-    
-    var request: URLRequest? {
-        return _request.request
-    }
-    
-    init(_request: DataRequest) {
-        self._request = _request
-    }
-    
-    open func cancel() {
-        _request.cancel()
-    }
-    
-}
-
-public func removeNilValuesFromString(dictionary: [String: String?]) -> [String: String] {
-    var cleanDictionary = [String: String]()
-    for item in dictionary {
-        if let value = item.1 {
-            cleanDictionary[item.0] = value
-        }
-    }
-    return cleanDictionary
-}
-
-public func removeNilValues<T: Any>(dictionary: [String: T?]) -> [String: T] {
-    var cleanDictionary = [String: T]()
-    for item in dictionary {
-        if let value = item.1 {
-            cleanDictionary[item.0] = value
-        }
-    }
-    return cleanDictionary
-}
-
 public enum NetworkManagerError: String {
     case unknown = "UNKNOWN"
     case internetConnection = "INTERNET_CONNECTION"
@@ -77,19 +39,19 @@ public class NetworkManager: NSObject {
         initReachibility()
     }
 
-    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, mapArrayPath: String? = nil, complete: (([T]?, AppError?) -> Void)? = nil) -> NetworkRequest? {
+    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, mapArrayPath: String? = nil, complete: (([T]?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
         return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
             complete?(respose.mapArray(path: mapArrayPath), respose.error)
         }
     }
     
-    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((T?, AppError?) -> Void)? = nil) -> NetworkRequest? {
+    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((T?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
         return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
             complete?(respose.map(), respose.error)
         }
     }
     
-    @discardableResult public class func simpleRequest(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((AppError?) -> Void)? = nil) -> NetworkRequest? {
+    @discardableResult public class func simpleRequest(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((ResponseError?) -> Void)? = nil) -> NetworkRequest? {
         return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
             complete?(respose.error)
         }
@@ -141,8 +103,8 @@ public class NetworkManager: NSObject {
     
     fileprivate var noInternetConnectionResponse: Response {
         let resp = Response(URLRequest: nil, response: nil)
-        resp.error = AppError(
-            error: NetworkManagerError.internetConnection.rawValue,
+        resp.error = ResponseError(
+            errorCode: NetworkManagerError.internetConnection.rawValue,
             localizedDescription: "No Internet Connection"
         )
         return resp
@@ -178,13 +140,13 @@ public class NetworkManager: NSObject {
         }
         
         if let _nsError = error {
-            _response.error = AppError(
-                error: _nsError.localizedDescription,
+            _response.error = ResponseError(
+                errorCode: _nsError.localizedDescription,
                 localizedDescription: _nsError.localizedDescription
             )
         } else if _response.error == nil {
-            _response.error = AppError(
-                error: NetworkManagerError.unknown.rawValue,
+            _response.error = ResponseError(
+                errorCode: NetworkManagerError.unknown.rawValue,
                 localizedDescription: "Unknown \(response!.statusCode)"
             )
         }
@@ -316,7 +278,7 @@ public class NetworkManager: NSObject {
      
      - returns: Error object with NetworkManagerError and localized description
      */
-    fileprivate func getError(_ json: Any?) -> AppError? {
+    fileprivate func getError(_ json: Any?) -> ResponseError? {
         
         var error = "", errorDescription = ""
         
@@ -335,7 +297,7 @@ public class NetworkManager: NSObject {
             
         }
         
-        return AppError(error: error, localizedDescription: errorDescription)
+        return ResponseError(errorCode: error, localizedDescription: errorDescription)
     }
     
     // MARK: - Timer
