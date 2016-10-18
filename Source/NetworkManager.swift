@@ -24,7 +24,7 @@ public class NetworkManager: NSObject {
     let logRequest = true
     
     public enum POSTDataType {
-        case json, formData
+        case json, formData, multipart
     }
     
     public var prefferedPostDataType: POSTDataType = .json
@@ -88,7 +88,18 @@ public class NetworkManager: NSObject {
             httpBody: httpBody
         )
         
-        let req = Alamofire.request(request)
+        let req: DataRequest
+        
+        if postDataType == .multipart {
+            let uploading = Alamofire.upload(request.httpBody!, with: request)
+            uploading.uploadProgress { p in
+                uploadProgress?(Float(p.fractionCompleted))
+            }
+            req = uploading
+        } else {
+            req = Alamofire.request(request)
+        }
+        
         req.downloadProgress { (p) in
             downloadProgress?(Float(p.fractionCompleted))
         }
@@ -97,7 +108,7 @@ public class NetworkManager: NSObject {
             let resp = self.complete(request, response: response.response, JSON: response.result.value, error: response.result.error)
             complete?(resp)
         }
-
+        
         return NetworkRequest(_request: req)
     }
     
@@ -207,27 +218,46 @@ public class NetworkManager: NSObject {
             fillParametersForJSONDataType(parameters, toRequest: &request)
         case .formData:
             fillParametersForFormDataType(parameters, toRequest: &request)
+        case .multipart:
+            fillParametersForMultipartDataType(parameters, toRequest: &request)
+            break
         }
     }
     
     fileprivate func fillParametersForJSONDataType(_ parameters: [String: Any]?, toRequest request: inout URLRequest) {
-        if let parameters = parameters {
-            do {
-                request.httpBody = try JSONSerialization.data(
-                    withJSONObject: parameters,
-                    options: [.prettyPrinted]
-                )
-            } catch _ {
-                request.httpBody = nil
-            }
+        guard let parameters = parameters else { return }
+        do {
+            request.httpBody = try JSONSerialization.data(
+                withJSONObject: parameters,
+                options: [.prettyPrinted]
+            )
+        } catch _ {
+            request.httpBody = nil
         }
     }
     
     fileprivate func fillParametersForFormDataType(_ parameters: [String: Any]?, toRequest request: inout URLRequest) {
-        if let parameters = parameters {
-            let serializer = DictionarySerializer(dict: parameters)
-            let string = serializer.getParametersInFormEncodedString()
-            request.httpBody = string.data(using: .utf8)
+        guard let parameters = parameters else { return }
+        let serializer = DictionarySerializer(dict: parameters)
+        let string = serializer.getParametersInFormEncodedString()
+        request.httpBody = string.data(using: .utf8)
+    }
+    
+    fileprivate func fillParametersForMultipartDataType(_ parameters: [String: Any]?, toRequest request: inout URLRequest) {
+        guard let parameters = parameters else { return }
+        let multipart = MultipartFormData()
+        for (key, value) in parameters {
+            if let data = value as? Data {
+                multipart.append(data, withName: key)
+            } else if let string = value as? String, let data = string.data(using: .utf8) {
+                multipart.append(data, withName: key)
+            }
+        }
+        do {
+            let data = try multipart.encode()
+            request.httpBody = data
+        } catch _ {
+            
         }
     }
     
