@@ -24,7 +24,7 @@ public class NetworkManager: NSObject {
     let logRequest = true
     
     public enum POSTDataType {
-        case json, formData, multipart
+        case json, formData
     }
     
     public var prefferedPostDataType: POSTDataType = .json
@@ -38,7 +38,7 @@ public class NetworkManager: NSObject {
         
         initReachibility()
     }
-
+    
     @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, mapArrayPath: String? = nil, complete: (([T]?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
         return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
             complete?(respose.mapArray(path: mapArrayPath), respose.error)
@@ -59,6 +59,10 @@ public class NetworkManager: NSObject {
     
     @discardableResult public class func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
         return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress, complete: complete)
+    }
+    
+    @discardableResult public class func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: String]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {
+        return sharedInstance.upload(url, getParameters: getParameters, parameters: parameters, files: files, httpHeaderFields: httpHeaderFields, uploadProgress: uploadProgress, downloadProgress: downloadProgress, beginUploading: beginUploading, complete: complete)
     }
     
     /**
@@ -88,18 +92,8 @@ public class NetworkManager: NSObject {
             httpBody: httpBody
         )
         
-        let req: DataRequest
         
-        if postDataType == .multipart {
-            let uploading = Alamofire.upload(request.httpBody!, with: request)
-            uploading.uploadProgress { p in
-                uploadProgress?(Float(p.fractionCompleted))
-            }
-            req = uploading
-        } else {
-            req = Alamofire.request(request)
-        }
-        
+        let req = Alamofire.request(request)
         req.downloadProgress { (p) in
             downloadProgress?(Float(p.fractionCompleted))
         }
@@ -110,6 +104,55 @@ public class NetworkManager: NSObject {
         }
         
         return NetworkRequest(_request: req)
+    }
+    
+    func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: String]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {
+        
+        if !isReachable {
+            complete?(noInternetConnectionResponse)
+            return
+        }
+        
+        startTimeForCheckQualityOfInternetConnection()
+        
+        let urlString = build(url: url, getParameters: getParameters)
+        
+        Alamofire.upload(multipartFormData: { multipart in
+            
+            if let parameters = parameters {
+                for (key, value) in parameters {
+                    if let data = value.data(using: .utf8) {
+                        multipart.append(data, withName: key)
+                    }
+                }
+            }
+            
+            if let files = files {
+                for (key, file) in files {
+                    multipart.append(file.data, withName: key, fileName: file.name, mimeType: file.mime)
+                }
+            }
+            
+            }, usingThreshold: 0, to: urlString, method: .post, headers: authHttpHeaderFields, encodingCompletion: { (encodingResult) in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseJSON { response in
+                        self.stopTimeForCheckQualityOfInternetConnection()
+                        let resp = self.complete(response.request, response: response.response, JSON: response.result.value, error: response.result.error)
+                        complete?(resp)
+                    }
+                    upload.uploadProgress(closure: { (p) in
+                        uploadProgress?(Float(p.fractionCompleted))
+                    })
+                    upload.downloadProgress { (p) in
+                        downloadProgress?(Float(p.fractionCompleted))
+                    }
+                    beginUploading?(NetworkRequest(_request: upload), nil)
+                case .failure(let encodingError):
+                    beginUploading?(nil, ResponseError(error: encodingError.localizedDescription))
+                }
+        })
+        
     }
     
     fileprivate var noInternetConnectionResponse: Response {
@@ -176,6 +219,30 @@ public class NetworkManager: NSObject {
      */
     fileprivate func constructRequestForMethod(_ method: HTTPMethod, url: String, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil) -> URLRequest {
         
+        let urlString = build(url: url, getParameters: getParameters)
+        
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        
+        if let httpBody = httpBody {
+            request.httpBody = httpBody
+        } else {
+            fill(parameters, withPostDataType: postDataType ?? prefferedPostDataType, toRequest: &request)
+        }
+        
+        buildhttpHeaderFields(&request, httpHeaderFields: httpHeaderFields)
+        
+        if logRequest {
+            log(request)
+        }
+        
+        request.cachePolicy = .reloadIgnoringCacheData
+        
+        return request
+    }
+    
+    fileprivate func build(url: String, getParameters: [String: Any?]?) -> String {
         var completeURL = url
         
         completeURL = url + "?"
@@ -188,28 +255,7 @@ public class NetworkManager: NSObject {
         
         completeURL = completeURL.trimmingCharacters(in: CharacterSet(charactersIn: "&?"))
         
-        let url = URL(string: completeURL)!
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-        
-        if let httpBody = httpBody {
-            request.httpBody = httpBody
-        } else {
-            fill(parameters, withPostDataType: postDataType ?? prefferedPostDataType, toRequest: &request)
-        }
-        
-        buildhttpHeaderFields(
-            &request,
-            httpHeaderFields: httpHeaderFields
-        )
-        
-        if logRequest {
-            log(request)
-        }
-        
-        request.cachePolicy = .reloadIgnoringCacheData
-        
-        return request
+        return completeURL
     }
     
     fileprivate func fill(_ parameters: [String: Any]?, withPostDataType postDataType: POSTDataType, toRequest request: inout URLRequest) {
@@ -218,9 +264,6 @@ public class NetworkManager: NSObject {
             fillParametersForJSONDataType(parameters, toRequest: &request)
         case .formData:
             fillParametersForFormDataType(parameters, toRequest: &request)
-        case .multipart:
-            fillParametersForMultipartDataType(parameters, toRequest: &request)
-            break
         }
     }
     
@@ -243,31 +286,12 @@ public class NetworkManager: NSObject {
         request.httpBody = string.data(using: .utf8)
     }
     
-    fileprivate func fillParametersForMultipartDataType(_ parameters: [String: Any]?, toRequest request: inout URLRequest) {
-        guard let parameters = parameters else { return }
-        let multipart = MultipartFormData()
-        
-        for (key, value) in parameters {
-            if let data = value as? Data {
-                multipart.append(data, withName: key)
-            } else if let string = value as? String, let data = string.data(using: .utf8) {
-                multipart.append(data, withName: key)
-            }
-        }
-        do {
-            let data = try multipart.encode()
-            request.httpBody = data
-        } catch _ {
-            
-        }
-    }
-    
     fileprivate func log(_ request: URLRequest) {
         print("")
         print("--- NEW REQUEST ---")
         print(" \(request.httpMethod!) \(request.url!) ")
-//        print("--- HEADER ---")
-//        print(request.allHTTPHeaderFields!)
+        //        print("--- HEADER ---")
+        //        print(request.allHTTPHeaderFields!)
         if let body = request.httpBody {
             print("--- BODY ---")
             if let string = String(data: body, encoding: .utf8) {
