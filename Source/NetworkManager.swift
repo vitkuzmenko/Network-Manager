@@ -104,7 +104,7 @@ public class NetworkManager: NSObject {
     fileprivate var noInternetConnectionResponse: Response {
         let resp = Response(URLRequest: nil, response: nil)
         resp.error = ResponseError(
-            errorCode: NetworkManagerError.internetConnection.rawValue,
+            error: NetworkManagerError.internetConnection.rawValue,
             localizedDescription: "No Internet Connection"
         )
         return resp
@@ -141,12 +141,12 @@ public class NetworkManager: NSObject {
         
         if let _nsError = error {
             _response.error = ResponseError(
-                errorCode: _nsError.localizedDescription,
+                error: _nsError.localizedDescription,
                 localizedDescription: _nsError.localizedDescription
             )
         } else if _response.error == nil {
             _response.error = ResponseError(
-                errorCode: NetworkManagerError.unknown.rawValue,
+                error: NetworkManagerError.unknown.rawValue,
                 localizedDescription: "Unknown \(response!.statusCode)"
             )
         }
@@ -297,7 +297,7 @@ public class NetworkManager: NSObject {
             
         }
         
-        return ResponseError(errorCode: error, localizedDescription: errorDescription)
+        return ResponseError(error: error, localizedDescription: errorDescription)
     }
     
     // MARK: - Timer
