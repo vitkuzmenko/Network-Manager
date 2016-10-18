@@ -22,8 +22,8 @@ open class ResponseError: Error {
     
     open var request: URLRequest?
     
-    public init(errorCode: String, localizedDescription: String = "", errorType: ViewType = .error) {
-        self.errorCode = errorCode
+    public init(error: String, localizedDescription: String = "", errorType: ViewType = .error) {
+        self.errorCode = error
         self.localizedDescription = localizedDescription.isEmpty ? NSLocalizedString(errorCode, comment: "") : localizedDescription
         self.errorType = errorType
     }
