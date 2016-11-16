@@ -352,7 +352,10 @@ public class NetworkManager: NSObject {
             
         }
         
-        return ResponseError(error: error, localizedDescription: errorDescription)
+        let e = ResponseError(error: error, localizedDescription: errorDescription)
+        e.JSON = json
+        
+        return e
     }
     
     // MARK: - Timer
