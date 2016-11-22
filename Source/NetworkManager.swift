@@ -187,6 +187,7 @@ public class NetworkManager: NSObject {
                 return _response
             case 400, 404, 500, 401, 403:
                 _response.error = self.getError(JSON)
+                _response.error?.statusCode = status
                 return _response
             default:
                 break
