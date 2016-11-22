@@ -14,6 +14,12 @@ public protocol IdentifierHolder {
 
 extension Array where Element : IdentifierHolder {
     
+    public func object(with id: Int) -> Element? {
+        return filter({ (object) -> Bool in
+            return object.id == id
+        }).first
+    }
+    
     public var ids: [Int] {
         var ids = [Int]()
         for item in self {

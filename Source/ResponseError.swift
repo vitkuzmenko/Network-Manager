@@ -24,6 +24,8 @@ open class ResponseError: Error {
     
     open var JSON: Any?
     
+    open var statusCode: Int = 0
+    
     public init(error: String, localizedDescription: String = "", errorType: ViewType = .error) {
         self.errorCode = error
         self.localizedDescription = localizedDescription.isEmpty ? NSLocalizedString(errorCode, comment: "") : localizedDescription

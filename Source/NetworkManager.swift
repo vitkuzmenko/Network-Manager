@@ -205,6 +205,8 @@ public class NetworkManager: NSObject {
             )
         }
         
+        _response.error?.statusCode = response?.statusCode ?? 0
+        
         return _response
     }
     
