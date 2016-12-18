@@ -133,24 +133,24 @@ public class NetworkManager: NSObject {
                 }
             }
             
-            }, usingThreshold: 0, to: urlString, method: .post, headers: authHttpHeaderFields, encodingCompletion: { (encodingResult) in
-                switch encodingResult {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-                        self.stopTimeForCheckQualityOfInternetConnection()
-                        let resp = self.complete(response.request, response: response.response, JSON: response.result.value, error: response.result.error)
-                        complete?(resp)
-                    }
-                    upload.uploadProgress(closure: { (p) in
-                        uploadProgress?(Float(p.fractionCompleted))
-                    })
-                    upload.downloadProgress { (p) in
-                        downloadProgress?(Float(p.fractionCompleted))
-                    }
-                    beginUploading?(NetworkRequest(_request: upload), nil)
-                case .failure(let encodingError):
-                    beginUploading?(nil, ResponseError(error: encodingError.localizedDescription))
+        }, usingThreshold: 0, to: urlString, method: .post, headers: authHttpHeaderFields, encodingCompletion: { (encodingResult) in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    self.stopTimeForCheckQualityOfInternetConnection()
+                    let resp = self.complete(response.request, response: response.response, JSON: response.result.value, error: response.result.error)
+                    complete?(resp)
                 }
+                upload.uploadProgress(closure: { (p) in
+                    uploadProgress?(Float(p.fractionCompleted))
+                })
+                upload.downloadProgress { (p) in
+                    downloadProgress?(Float(p.fractionCompleted))
+                }
+                beginUploading?(NetworkRequest(_request: upload), nil)
+            case .failure(let encodingError):
+                beginUploading?(nil, ResponseError(error: encodingError.localizedDescription))
+            }
         })
         
     }
@@ -287,6 +287,7 @@ public class NetworkManager: NSObject {
         let serializer = DictionarySerializer(dict: parameters)
         let string = serializer.getParametersInFormEncodedString()
         request.httpBody = string.data(using: .utf8)
+        request.addValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
     }
     
     fileprivate func log(_ request: URLRequest) {
