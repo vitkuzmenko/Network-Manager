@@ -8,6 +8,15 @@
 
 import Foundation
 
+extension String {
+    
+    var URLEncode: String {
+        return CFURLCreateStringByAddingPercentEscapes(nil, self as CFString!, nil, "!*'();:@&=+$,/?%#[]" as CFString!, CFStringBuiltInEncodings.UTF8.rawValue) as String
+    }
+    
+}
+
+
 class DictionarySerializer {
     
     var dict: [String: Any]
@@ -61,9 +70,9 @@ class DictionarySerializer {
         var string = string
         
         if let value = value as? String {
-            string = String(format: "%@=%@", string, value)
+            string = String(format: "%@=%@", string, value.URLEncode)
         } else if let value = value as? NSNumber {
-            string = String(format: "%@=%@", string, value.stringValue)
+            string = String(format: "%@=%@", string, value.stringValue.URLEncode)
         } else if let value = value as? [String: Any] {
             string = serialize(dict: value, nested: string)
         } else if let value = value as? [Any] {
