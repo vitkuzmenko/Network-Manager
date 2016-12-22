@@ -22,7 +22,6 @@
 		79442C2E1DB6029A005197C0 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79442C2D1DB6029A005197C0 /* NetworkRequest.swift */; };
 		79442C301DB602BF005197C0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79442C2F1DB602BF005197C0 /* Helpers.swift */; };
 		7997C9FB1DBE20F800F6ABAB /* ISO8601CustomDateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7997C9FA1DBE20F800F6ABAB /* ISO8601CustomDateTransform.swift */; };
-		79C9D4B81DDC6DF700F69268 /* UIAlertController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9D4B71DDC6DF700F69268 /* UIAlertController+Error.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +43,6 @@
 		79442C2D1DB6029A005197C0 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		79442C2F1DB602BF005197C0 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		7997C9FA1DBE20F800F6ABAB /* ISO8601CustomDateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601CustomDateTransform.swift; sourceTree = "<group>"; };
-		79C9D4B71DDC6DF700F69268 /* UIAlertController+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Error.swift"; sourceTree = "<group>"; };
 		FB4EA7ED7C8840110BAC2F67 /* Pods_Network_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Network_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -112,7 +110,6 @@
 				792A76621DB4B8BD00BEEEF1 /* Response.swift */,
 				79442C2F1DB602BF005197C0 /* Helpers.swift */,
 				7997C9FA1DBE20F800F6ABAB /* ISO8601CustomDateTransform.swift */,
-				79C9D4B71DDC6DF700F69268 /* UIAlertController+Error.swift */,
 			);
 			path = Source;
 			sourceTree = SOURCE_ROOT;
@@ -251,7 +248,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79C9D4B81DDC6DF700F69268 /* UIAlertController+Error.swift in Sources */,
 				792A76661DB4B8BD00BEEEF1 /* NetworkManager.swift in Sources */,
 				792A76431DB4B2DD00BEEEF1 /* ViewController.swift in Sources */,
 				79442C2E1DB6029A005197C0 /* NetworkRequest.swift in Sources */,
