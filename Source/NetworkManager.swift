@@ -315,18 +315,18 @@ public class NetworkManager: NSObject {
      */
     fileprivate func buildhttpHeaderFields(_ request: inout URLRequest, httpHeaderFields: [String: String]?) {
         
-        if let httpHeaderFields = httpHeaderFields {
-            for item in httpHeaderFields {
-                request.setValue(item.1, forHTTPHeaderField: item.0)
-            }
-        }
-        
         let lang = NSLocalizedString("lang", comment: "")
         
         request.setValue(lang, forHTTPHeaderField: "Accept-Language")
         
         for (key, value) in authHttpHeaderFields {
             request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        if let httpHeaderFields = httpHeaderFields {
+            for item in httpHeaderFields {
+                request.setValue(item.1, forHTTPHeaderField: item.0)
+            }
         }
         
         request.timeoutInterval = 30
