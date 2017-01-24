@@ -17,19 +17,19 @@ extension String {
 }
 
 
-class DictionarySerializer {
+open class DictionarySerializer {
     
     var dict: [String: Any]
     
-    init(dict: [String: Any]) {
+    public init(dict: [String: Any]) {
         self.dict = dict
     }
     
-    func getParametersInFormEncodedString() -> String {
+    open func getParametersInFormEncodedString() -> String {
         return serialize(dict: dict)
     }
     
-    func serialize(dict: [String: Any], nested: String? = nil) -> String {
+    open func serialize(dict: [String: Any], nested: String? = nil) -> String {
         
         var strings: [String] = []
         
@@ -48,7 +48,7 @@ class DictionarySerializer {
         return strings.joined(separator: "&")
     }
     
-    func serialize(array: [Any], nested: String? = nil) -> String {
+    open func serialize(array: [Any], nested: String? = nil) -> String {
         
         var strings: [String] = []
         
@@ -66,7 +66,7 @@ class DictionarySerializer {
         return strings.joined(separator: "&")
     }
     
-    func serialize(value: Any, withString string: String, nested: String? = nil) -> String {
+    open func serialize(value: Any, withString string: String, nested: String? = nil) -> String {
         var string = string
         
         if let value = value as? String {
