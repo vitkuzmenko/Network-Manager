@@ -4,12 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Alamofire.xcscheme</key>
+		<key>Alamofire-OSX.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ObjectMapper.xcscheme</key>
+		<key>Alamofire-iOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ObjectMapper-OSX.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ObjectMapper-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -19,7 +29,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ReachabilitySwift.xcscheme</key>
+		<key>Pods-NetworkManagerExample.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReachabilitySwift-OSX.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReachabilitySwift-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +47,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>635D81487DF0081DC0346B5E140CE312</key>
+		<key>1920071AD1A2806BF1A82F9FEC0A11BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<key>382E561C5692522A8AD8D95C6841218F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C8A84485A82D0105AD90775E6388A52B</key>
+		<key>4D8199C20C1BE5F5BCDBC8F8CB4BF089</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CABB41E29088E5918AB5FC14CF4C3094</key>
+		<key>68C248491666FF642DFFD0D7F3CB2DB7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>80AA978C33D1BB6CDE24FB7044F69AD2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8F05202D5606469A40ED497F0AE78299</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C18A1A368220E54C71EE2AB8835F2131</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C5A17A6B5BD2524AD7E4A06F50390A66</key>
 		<dict>
 			<key>primary</key>
 			<true/>
