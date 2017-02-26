@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NetworkManager"
-  s.version      = "0.0.7"
+  s.version      = "0.0.8"
   s.summary      = "Network Manager"
 
   s.homepage     = "https://github.com/vitkuzmenko/NetworkManager.git"
