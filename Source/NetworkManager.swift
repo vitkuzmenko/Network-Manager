@@ -187,12 +187,10 @@ public class NetworkManager: NSObject {
             case 200...226 :
                 _response.JSON = JSON
                 return _response
-            case 400, 404, 500, 401, 403:
+            default:
                 _response.error = self.getError(JSON)
                 _response.error?.statusCode = status
                 return _response
-            default:
-                break
             }
         }
         
