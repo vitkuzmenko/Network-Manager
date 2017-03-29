@@ -11,7 +11,8 @@ import Foundation
 extension String {
     
     var URLEncode: String {
-        return CFURLCreateStringByAddingPercentEscapes(nil, self as CFString!, nil, "!*'();:@&=+$,/?%#[]" as CFString!, CFStringBuiltInEncodings.UTF8.rawValue) as String
+        let set = CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]")
+        return self.addingPercentEncoding(withAllowedCharacters: set) ?? self
     }
     
 }
