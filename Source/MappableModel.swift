@@ -47,7 +47,7 @@ open class MappableModel: Mappable, CustomStringConvertible, IdentifierHolder, E
     
     public var id: Int = 0
     
-    public var hashValue: Int {
+    open var hashValue: Int {
         return id
     }
     
