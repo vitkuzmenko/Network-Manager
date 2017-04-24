@@ -73,4 +73,10 @@ open class MappableModel: Mappable, CustomStringConvertible, IdentifierHolder, E
         }
     }
     
+    open func mapping(object: MappableModel) {
+        let json = object.toJSON()
+        let map = Map(mappingType: .fromJSON, JSON: json)
+        mapping(map: map)
+    }
+    
 }
