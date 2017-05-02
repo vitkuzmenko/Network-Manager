@@ -25,6 +25,6 @@ Pod::Spec.new do |s|
   }
   
   s.dependency 'ObjectMapper', '~> 2.1'
-  s.dependency 'NetworkManager', '~> 0.0.8', :git => 'https://github.com/vitkuzmenko/NetworkManager.git'
+#s.dependency 'NetworkManager', :git => 'https://github.com/vitkuzmenko/NetworkManager.git'
 
   end
