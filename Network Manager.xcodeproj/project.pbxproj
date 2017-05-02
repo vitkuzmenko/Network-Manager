@@ -24,7 +24,6 @@
 		793219081EB86AA80059A0AE /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219021EB86AA80059A0AE /* Response.swift */; };
 		793219091EB86AA80059A0AE /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219031EB86AA80059A0AE /* ResponseError.swift */; };
 		7932190D1EB86AC20059A0AE /* MappableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7932190C1EB86AC20059A0AE /* MappableModel.swift */; };
-		7932190F1EB86B020059A0AE /* MappableModel.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7932190E1EB86B020059A0AE /* MappableModel.podspec */; };
 		B4F21D21E61E6EB2FCF707E0 /* Pods_NetworkManagerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888150A977C935329BCE6890 /* Pods_NetworkManagerExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +50,6 @@
 		793219021EB86AA80059A0AE /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		793219031EB86AA80059A0AE /* ResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		7932190C1EB86AC20059A0AE /* MappableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableModel.swift; sourceTree = "<group>"; };
-		7932190E1EB86B020059A0AE /* MappableModel.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MappableModel.podspec; sourceTree = "<group>"; };
 		8264796EE35CB08950A7DC6C /* Pods-NetworkManagerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkManagerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkManagerExample/Pods-NetworkManagerExample.release.xcconfig"; sourceTree = "<group>"; };
 		888150A977C935329BCE6890 /* Pods_NetworkManagerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkManagerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97065183DE2761F6548AE96D /* Pods-NetworkManagerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkManagerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkManagerExample/Pods-NetworkManagerExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -91,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				792A76741DB50E0C00BEEEF1 /* NetworkManager.podspec */,
-				7932190E1EB86B020059A0AE /* MappableModel.podspec */,
 				792A763F1DB4B2DD00BEEEF1 /* Network Manager */,
 				79312DA31E62D29600E73D97 /* NetworkManagerExample */,
 				792A763E1DB4B2DD00BEEEF1 /* Products */,
@@ -273,7 +270,6 @@
 			files = (
 				792A764B1DB4B2DD00BEEEF1 /* LaunchScreen.storyboard in Resources */,
 				792A76481DB4B2DD00BEEEF1 /* Assets.xcassets in Resources */,
-				7932190F1EB86B020059A0AE /* MappableModel.podspec in Resources */,
 				792A76461DB4B2DD00BEEEF1 /* Main.storyboard in Resources */,
 				792A76751DB50E0C00BEEEF1 /* NetworkManager.podspec in Resources */,
 			);
