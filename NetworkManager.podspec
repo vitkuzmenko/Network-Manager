@@ -26,5 +26,6 @@ Pod::Spec.new do |s|
   
   s.dependency 'Alamofire', '~> 4.0'
   s.dependency 'ReachabilitySwift', '~> 3.0'
+  s.dependency 'ObjectMapper'
 
   end
