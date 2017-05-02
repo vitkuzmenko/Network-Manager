@@ -10,9 +10,8 @@ import ObjectMapper
 import Alamofire
 import ReachabilitySwift
 
-public enum NetworkManagerError: String {
-    case unknown = "UNKNOWN"
-    case internetConnection = "INTERNET_CONNECTION"
+extension ResponseError {
+    static let noInternetConnection = ResponseError(error: NSLocalizedString("No internet connection", comment: ""))
 }
 
 public class NetworkManager: NSObject {
@@ -29,9 +28,13 @@ public class NetworkManager: NSObject {
     
     public var prefferedPostDataType: POSTDataType = .json
     
-    public static let sharedInstance = NetworkManager()
+    public static let `default` = NetworkManager()
     
     public var authHttpHeaderFields: [String: String] = [:]
+    
+    public var logConfiguration: (url: Bool, headers: Bool, body: Bool) = (true, false, true)
+    
+    public var isTesting = false
     
     override init() {
         super.init()
@@ -39,30 +42,12 @@ public class NetworkManager: NSObject {
         initReachibility()
     }
     
-    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, mapArrayPath: String? = nil, complete: (([T]?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
-        return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
-            complete?(respose.mapArray(path: mapArrayPath), respose.error)
-        }
-    }
-    
-    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((T?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
-        return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
-            complete?(respose.map(), respose.error)
-        }
-    }
-    
-    @discardableResult public class func simpleRequest(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((ResponseError?) -> Void)? = nil) -> NetworkRequest? {
-        return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress) { respose in
-            complete?(respose.error)
-        }
-    }
-    
-    @discardableResult public class func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
-        return sharedInstance.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, uploadProgress: uploadProgress, downloadProgress: downloadProgress, complete: complete)
+    @discardableResult public class func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
+        return NetworkManager.default.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, downloadProgress: downloadProgress, complete: complete)
     }
     
     public class func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: String]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {
-        return sharedInstance.upload(url, getParameters: getParameters, parameters: parameters, files: files, httpHeaderFields: httpHeaderFields, uploadProgress: uploadProgress, downloadProgress: downloadProgress, beginUploading: beginUploading, complete: complete)
+        return NetworkManager.default.upload(url, getParameters: getParameters, parameters: parameters, files: files, httpHeaderFields: httpHeaderFields, uploadProgress: uploadProgress, downloadProgress: downloadProgress, beginUploading: beginUploading, complete: complete)
     }
     
     /**
@@ -73,32 +58,31 @@ public class NetworkManager: NSObject {
      - parameter parameters: Request Body parameters
      - parameter complete:   completion closure
      */
-    func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
+    func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
         
         if !isReachable {
             complete?(noInternetConnectionResponse)
             return nil
         }
-        
-        startTimeForCheckQualityOfInternetConnection()
-        
+
         let request = constructRequestForMethod(
             method,
             url: url,
             getParameters: getParameters,
             parameters: parameters,
-            postDataType: postDataType,
+            postDataType: postDataType ?? prefferedPostDataType,
             httpHeaderFields: httpHeaderFields,
             httpBody: httpBody
         )
         
+        Alamofire.SessionManager.default.startRequestsImmediately = !isTesting
         
         let req = Alamofire.request(request)
         req.downloadProgress { (p) in
             downloadProgress?(Float(p.fractionCompleted))
         }
+        
         req.responseJSON { (response) in
-            self.stopTimeForCheckQualityOfInternetConnection()
             let resp = self.complete(request, response: response.response, JSON: response.result.value, error: response.result.error)
             complete?(resp)
         }
@@ -112,9 +96,7 @@ public class NetworkManager: NSObject {
             complete?(noInternetConnectionResponse)
             return
         }
-        
-        startTimeForCheckQualityOfInternetConnection()
-        
+
         let urlString = build(url: url, getParameters: getParameters)
         
         Alamofire.upload(multipartFormData: { multipart in
@@ -137,7 +119,6 @@ public class NetworkManager: NSObject {
             switch encodingResult {
             case .success(let upload, _, _):
                 upload.responseJSON { response in
-                    self.stopTimeForCheckQualityOfInternetConnection()
                     let resp = self.complete(response.request, response: response.response, JSON: response.result.value, error: response.result.error)
                     complete?(resp)
                 }
@@ -152,17 +133,11 @@ public class NetworkManager: NSObject {
                 beginUploading?(nil, ResponseError(error: encodingError.localizedDescription))
             }
         })
-        
-        
-        
     }
     
     fileprivate var noInternetConnectionResponse: Response {
         let resp = Response(URLRequest: nil, response: nil)
-        resp.error = ResponseError(
-            error: NetworkManagerError.internetConnection.rawValue,
-            localizedDescription: "No Internet Connection"
-        )
+        resp.error = .noInternetConnection
         return resp
     }
     
@@ -195,15 +170,9 @@ public class NetworkManager: NSObject {
         }
         
         if let _nsError = error {
-            _response.error = ResponseError(
-                error: _nsError.localizedDescription,
-                localizedDescription: _nsError.localizedDescription
-            )
+            _response.error = ResponseError(error: _nsError.localizedDescription)
         } else if _response.error == nil {
-            _response.error = ResponseError(
-                error: NetworkManagerError.unknown.rawValue,
-                localizedDescription: "Unknown \(response!.statusCode)"
-            )
+            _response.error = ResponseError(error: "Unknown \(response!.statusCode)")
         }
         
         _response.error?.statusCode = response?.statusCode ?? 0
@@ -220,7 +189,7 @@ public class NetworkManager: NSObject {
      
      - returns: URLRequest object
      */
-    fileprivate func constructRequestForMethod(_ method: HTTPMethod, url: String, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil) -> URLRequest {
+    fileprivate func constructRequestForMethod(_ method: HTTPMethod, url: String, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil) -> URLRequest {
         
         let urlString = build(url: url, getParameters: getParameters)
         
@@ -231,7 +200,12 @@ public class NetworkManager: NSObject {
         if let httpBody = httpBody {
             request.httpBody = httpBody
         } else {
-            fill(parameters, withPostDataType: postDataType ?? prefferedPostDataType, toRequest: &request)
+            switch postDataType {
+            case .json:
+                fillParametersForJSONDataType(parameters, toRequest: &request)
+            case .formData:
+                fillParametersForFormDataType(parameters, toRequest: &request)
+            }
         }
         
         buildhttpHeaderFields(&request, httpHeaderFields: httpHeaderFields)
@@ -261,15 +235,6 @@ public class NetworkManager: NSObject {
         return completeURL
     }
     
-    fileprivate func fill(_ parameters: [String: Any]?, withPostDataType postDataType: POSTDataType, toRequest request: inout URLRequest) {
-        switch postDataType {
-        case .json:
-            fillParametersForJSONDataType(parameters, toRequest: &request)
-        case .formData:
-            fillParametersForFormDataType(parameters, toRequest: &request)
-        }
-    }
-    
     fileprivate func fillParametersForJSONDataType(_ parameters: [String: Any]?, toRequest request: inout URLRequest) {
         guard let parameters = parameters else { return }
         do {
@@ -291,17 +256,25 @@ public class NetworkManager: NSObject {
     }
     
     fileprivate func log(_ request: URLRequest) {
-        print("")
-        print("--- NEW REQUEST ---")
-        print(" \(request.httpMethod!) \(request.url!) ")
-        //        print("--- HEADER ---")
-        //        print(request.allHTTPHeaderFields!)
-        if let body = request.httpBody {
-            print("--- BODY ---")
-            if let string = String(data: body, encoding: .utf8) {
-                print(string)
-            }
+        
+        var logs: [String] = ["--- NEW REQUEST ---"]
+        
+        if logConfiguration.url {
+            let httpMethod = request.httpMethod ?? "Unknown HTTP Method"
+            let url = request.httpMethod ?? "URL is nil"
+            logs.append(String(format: "%@ %@", httpMethod, url))
         }
+        
+        if logConfiguration.headers {
+            logs.append("--- HEADER ---")
+            logs.append(request.allHTTPHeaderFields?.description ?? "Headers is nil")
+        }
+
+        if let body = request.httpBody, logConfiguration.body, let _body = String(data: body, encoding: .utf8) {
+            logs.append(_body)
+        }
+        
+        print(logs.joined(separator: "\n\n"))
     }
     
     /**
@@ -361,37 +334,7 @@ public class NetworkManager: NSObject {
         
         return e
     }
-    
-    // MARK: - Timer
-    
-    /// Timer for check quality of internet connection
-    fileprivate var timer: Timer?
-    
-    fileprivate var canStartSimerForCheckQualityOfInternetConnection = true
-    
-    fileprivate func startTimeForCheckQualityOfInternetConnection() {
-        if canStartSimerForCheckQualityOfInternetConnection {
-            timer = Timer.scheduledTimer(
-                timeInterval: 15,
-                target: self,
-                selector: #selector(NetworkManager.postPoorInternetConnectionNotification(timer:)),
-                userInfo: nil,
-                repeats: false
-            )
-            canStartSimerForCheckQualityOfInternetConnection = false
-        }
-    }
-    
-    @objc fileprivate func postPoorInternetConnectionNotification(timer: Timer) {
-        //NSNotificationCenter.post(name: kWOSDKNCPoorInternetConnection)
-    }
-    
-    fileprivate func stopTimeForCheckQualityOfInternetConnection() {
-        canStartSimerForCheckQualityOfInternetConnection = true
-        timer?.invalidate()
-        timer = nil
-    }
-    
+
     func initReachibility() {
         
         guard let reachability = Reachability() else { return }
@@ -419,11 +362,11 @@ public class NetworkManager: NSObject {
         }
     }
     
-    public class func setAuthHeader(value: String, key: String) {
-        sharedInstance.authHttpHeaderFields[key] = value
+    public func setAuthHeader(value: String, key: String) {
+        authHttpHeaderFields[key] = value
     }
     
-    public class func clearAuthHeaderFields() {
-        sharedInstance.authHttpHeaderFields = [:]
+    public func clearAuthHeaderFields() {
+        authHttpHeaderFields = [:]
     }
 }

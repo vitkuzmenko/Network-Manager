@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
 
-  s.name         = "NetworkManager"
-  s.version      = "0.0.8"
-  s.summary      = "Network Manager"
+  s.name         = "MappableModel"
+  s.version      = "0.0.1"
+  s.summary      = "MappableModel"
 
-  s.homepage     = "https://github.com/vitkuzmenko/NetworkManager.git"
+  s.homepage     = "https://github.com/vitkuzmenko/MappableModel.git"
 
   s.license = 'MIT'
 
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => s.homepage, :tag => s.version.to_s }
 
-  s.source_files  = "Source/NetworkManager/*.swift"
+  s.source_files  = "Source/MappableModel/*.swift"
   
   s.requires_arc = 'true'
   
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
     'SWIFT_VERSION' => '3.0',
   }
   
-  s.dependency 'Alamofire', '~> 4.0'
-  s.dependency 'ReachabilitySwift', '~> 3.0'
+  s.dependency 'ObjectMapper', '~> 2.1'
+  s.dependency 'NetworkManager', :git => 'https://github.com/vitkuzmenko/NetworkManager.git'
 
   end
