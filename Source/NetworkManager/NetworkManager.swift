@@ -16,6 +16,19 @@ extension ResponseError {
 
 public class NetworkManager: NSObject {
     
+    open class TestResponse {
+        
+        var statusCode: Int
+        
+        var result: String
+        
+        init(result: String, statusCode: Int = 200) {
+            self.result = result
+            self.statusCode = statusCode
+        }
+        
+    }
+    
     var reachability = Reachability()
     
     var isReachable: Bool { return reachability?.isReachable ?? false }
@@ -34,15 +47,13 @@ public class NetworkManager: NSObject {
     
     public var logConfiguration: (url: Bool, headers: Bool, body: Bool) = (true, false, true)
     
-    public var isTesting = false
-    
     override init() {
         super.init()
         
         initReachibility()
     }
     
-    @discardableResult public class func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
+    @discardableResult public class func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, downloadProgress: ((Float) -> Void)? = nil, testResponse: TestResponse? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
         return NetworkManager.default.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, downloadProgress: downloadProgress, complete: complete)
     }
     
@@ -58,7 +69,7 @@ public class NetworkManager: NSObject {
      - parameter parameters: Request Body parameters
      - parameter complete:   completion closure
      */
-    func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, downloadProgress: ((Float) -> Void)? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
+    func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, downloadProgress: ((Float) -> Void)? = nil, testResponse: TestResponse? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
         
         if !isReachable {
             complete?(noInternetConnectionResponse)
@@ -75,19 +86,22 @@ public class NetworkManager: NSObject {
             httpBody: httpBody
         )
         
-        Alamofire.SessionManager.default.startRequestsImmediately = !isTesting
-        
-        let req = Alamofire.request(request)
-        req.downloadProgress { (p) in
-            downloadProgress?(Float(p.fractionCompleted))
-        }
-        
-        req.responseJSON { (response) in
-            let resp = self.complete(request, response: response.response, JSON: response.result.value, error: response.result.error)
+        if let testResponse = testResponse {
+            let httpResponse = HTTPURLResponse(url: request.url!, statusCode: testResponse.statusCode, httpVersion: nil, headerFields: nil)
+            let resp = self.complete(request, response: httpResponse, JSON: testResponse.result, error: nil)
             complete?(resp)
+            return nil
+        } else {
+            let req = Alamofire.request(request)
+            req.downloadProgress { (p) in
+                downloadProgress?(Float(p.fractionCompleted))
+            }
+            req.responseJSON { (response) in
+                let resp = self.complete(request, response: response.response, JSON: response.result.value, error: response.result.error)
+                complete?(resp)
+            }
+            return NetworkRequest(_request: req)
         }
-        
-        return NetworkRequest(_request: req)
     }
     
     func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: String]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {

@@ -8,7 +8,7 @@
 
 import ObjectMapper
 import Alamofire
-import NetworkManager
+//import NetworkManager
 
 public protocol IdentifierHolder {
     var id: Int { get set }
