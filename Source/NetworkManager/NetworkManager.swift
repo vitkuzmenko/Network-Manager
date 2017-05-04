@@ -275,7 +275,7 @@ public class NetworkManager: NSObject {
         
         if logConfiguration.url {
             let httpMethod = request.httpMethod ?? "Unknown HTTP Method"
-            let url = request.httpMethod ?? "URL is nil"
+            let url = request.url?.absoluteString ?? "URL is nil"
             logs.append(String(format: "%@ %@", httpMethod, url))
         }
         
