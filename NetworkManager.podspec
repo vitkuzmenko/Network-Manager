@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => s.homepage, :tag => s.version.to_s }
 
-  s.source_files  = "Source/*.swift"
+  s.source_files  = "Source/*/*.swift"
   
   s.requires_arc = 'true'
   
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   }
   
   s.dependency 'Alamofire', '~> 4.0'
-  s.dependency 'ObjectMapper', '~> 2.1'
   s.dependency 'ReachabilitySwift', '~> 3.0'
+  s.dependency 'ObjectMapper'
 
   end

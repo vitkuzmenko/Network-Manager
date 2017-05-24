@@ -15,7 +15,7 @@ extension String {
         return self.addingPercentEncoding(withAllowedCharacters: set) ?? self
     }
     
-}
+} 
 
 
 open class DictionarySerializer {
