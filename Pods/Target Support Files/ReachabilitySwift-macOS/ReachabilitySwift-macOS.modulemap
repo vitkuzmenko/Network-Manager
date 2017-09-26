@@ -1,5 +1,5 @@
 framework module ReachabilitySwift {
-  umbrella header "ReachabilitySwift-OSX-umbrella.h"
+  umbrella header "ReachabilitySwift-macOS-umbrella.h"
 
   export *
   module * { export * }
