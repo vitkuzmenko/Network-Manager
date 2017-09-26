@@ -11,8 +11,9 @@ import Foundation
 extension String {
     
     var URLEncode: String {
-        let set = CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]")
-        return self.addingPercentEncoding(withAllowedCharacters: set) ?? self
+        var set = CharacterSet.alphanumerics
+        set.insert(charactersIn: "_.-~")
+        return addingPercentEncoding(withAllowedCharacters: set) ?? self
     }
     
 } 
