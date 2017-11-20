@@ -15,3 +15,10 @@ target 'NetworkManagerExample' do
     pod 'ReachabilitySwift'
 end
 
+target 'TVExampple' do
+    platform :tvos, '9.0'
+    pod 'Alamofire'                         # HTTP networking       https://github.com/Alamofire/Alamofire
+    pod 'ObjectMapper'                      # JSON Mapping          https://github.com/Hearst-DD/ObjectMapper
+    pod 'ReachabilitySwift'
+end
+
