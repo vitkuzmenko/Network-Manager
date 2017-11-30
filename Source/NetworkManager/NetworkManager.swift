@@ -57,7 +57,7 @@ public class NetworkManager: NSObject {
         return NetworkManager.default.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, downloadProgress: downloadProgress, complete: complete)
     }
     
-    public class func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: String]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {
+    public class func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {
         return NetworkManager.default.upload(url, getParameters: getParameters, parameters: parameters, files: files, httpHeaderFields: httpHeaderFields, uploadProgress: uploadProgress, downloadProgress: downloadProgress, beginUploading: beginUploading, complete: complete)
     }
     
