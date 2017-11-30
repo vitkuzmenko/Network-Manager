@@ -1,12 +1,12 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CODE_SIGN_IDENTITY =
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire-OSX" "$PODS_CONFIGURATION_BUILD_DIR/ObjectMapper-OSX" "$PODS_CONFIGURATION_BUILD_DIR/ReachabilitySwift-OSX"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper-macOS" "${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift-macOS"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire-OSX/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/ObjectMapper-OSX/ObjectMapper.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/ReachabilitySwift-OSX/ReachabilitySwift.framework/Headers"
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-macOS/Alamofire.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper-macOS/ObjectMapper.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift-macOS/ReachabilitySwift.framework/Headers"
 OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "ObjectMapper" -framework "ReachabilitySwift"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
-PODS_BUILD_DIR = $BUILD_DIR
-PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods

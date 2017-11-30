@@ -125,5 +125,23 @@ extension NetworkManager {
         }
     }
     
+    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: URL, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, mapArrayPath: String? = nil, complete: (([T]?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
+        return NetworkManager.default.request(url.absoluteString, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody) { respose in
+            complete?(respose.mapArray(path: mapArrayPath), respose.error)
+        }
+    }
+    
+    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: URL, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, complete: ((T?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
+        return NetworkManager.default.request(url.absoluteString, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody) { respose in
+            complete?(respose.map(), respose.error)
+        }
+    }
+    
+    @discardableResult public class func simpleRequest(_ url: URL, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, complete: ((ResponseError?) -> Void)? = nil) -> NetworkRequest? {
+        return NetworkManager.default.request(url.absoluteString, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody) { respose in
+            complete?(respose.error)
+        }
+    }
+    
 }
 
