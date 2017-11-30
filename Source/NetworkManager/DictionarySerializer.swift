@@ -84,5 +84,16 @@ open class DictionarySerializer {
         return string
     }
     
+    open func flatKeyValue() -> [String: String] {
+        let string = serialize(dict: dict)
+        let components = string.components(separatedBy: "&")
+        var keyValues: [String: String] = [:]
+        for item in components {
+            let components = item.components(separatedBy: "=")
+            if components.count != 2 { continue }
+            keyValues[components[0]] = components[1]
+        }
+        return keyValues
+    }
+    
 }
-

@@ -104,19 +104,22 @@ public class NetworkManager: NSObject {
         }
     }
     
-    func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: String]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {
+    func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {
         
         if !isReachable {
             complete?(noInternetConnectionResponse)
             return
         }
-
+        
         let urlString = build(url: url, getParameters: getParameters)
         
         Alamofire.upload(multipartFormData: { multipart in
             
             if let parameters = parameters {
-                for (key, value) in parameters {
+                
+                let flatParams = DictionarySerializer(dict: parameters).flatKeyValue()
+                
+                for (key, value) in flatParams {
                     if let data = value.data(using: .utf8) {
                         multipart.append(data, withName: key)
                     }
