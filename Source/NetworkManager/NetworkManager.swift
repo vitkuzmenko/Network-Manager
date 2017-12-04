@@ -11,7 +11,7 @@ import Alamofire
 import ReachabilitySwift
 
 extension ResponseError {
-    static let noInternetConnection = ResponseError(error: NSLocalizedString("No internet connection", comment: ""))
+    static let noInternetConnection = ResponseError(error: NSLocalizedString("No internet connection", comment: ""), statusCode: -1)
 }
 
 public class NetworkManager: NSObject {

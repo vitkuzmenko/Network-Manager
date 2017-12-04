@@ -26,10 +26,11 @@ open class ResponseError: Error {
     
     open var statusCode: Int = 0
     
-    public init(error: String, localizedDescription: String = "", errorType: ViewType = .error) {
+    public init(error: String, localizedDescription: String = "", errorType: ViewType = .error, statusCode: Int = 0) {
         self.errorCode = error
         self.localizedDescription = localizedDescription.isEmpty ? NSLocalizedString(errorCode, comment: "") : localizedDescription
         self.errorType = errorType
+        self.statusCode = statusCode
     }
     
     open var description: String {
