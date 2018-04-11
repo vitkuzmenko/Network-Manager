@@ -8,7 +8,36 @@
 
 import Foundation
 
+extension String {
+ 
+    public var urlEncode: String {
+        let originalString = self
+        let escapedString = originalString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        return escapedString!
+    }
+    
+    public var urlValue: URL? {
+        var URLString = self
+        if URLString.hasPrefix("//") {
+            URLString = "http:" + URLString
+            if let URL = URL(string: URLString) {
+                return URL
+            }
+        } else if let URL = URL(string: URLString) {
+            return URL
+        }
+        return nil
+    }
+    
+}
+
 extension URL {
+    
+    public func appendingQueryParameters(_ queryParameters: [String: Any]) -> URL {
+        var url = self
+        url.appendQueryParameters(queryParameters)
+        return url
+    }
     
     public mutating func appendQueryParameters(_ queryParameters: [String: Any]) {
         var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: false)
@@ -22,20 +51,6 @@ extension URL {
         guard let url = urlComponents?.url else { return }
         
         self = url
-    }
-    
-    public func appendingQueryParameters(_ queryParameters: [String: Any]) -> URL {
-        var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: false)
-        
-        let queryItems = queryParameters.map {
-            return URLQueryItem(name: "\($0)", value: "\($1)")
-        }
-        
-        urlComponents?.queryItems = queryItems
-        
-        guard let url = urlComponents?.url else { return self }
-        
-        return url
     }
     
 }
