@@ -8,38 +8,17 @@
 
 import ObjectMapper
 import Alamofire
-import ReachabilitySwift
-
-extension ResponseError {
-    static let noInternetConnection = ResponseError(error: NSLocalizedString("No internet connection", comment: ""), statusCode: -1)
-}
+import Reachability
 
 public class NetworkManager: NSObject {
-    
-    open class TestResponse {
-        
-        var statusCode: Int
-        
-        var result: String
-        
-        init(result: String, statusCode: Int = 200) {
-            self.result = result
-            self.statusCode = statusCode
-        }
-        
-    }
-    
+
     var reachability = Reachability()
     
-    var isReachable: Bool { return reachability?.isReachable ?? false }
+    var isReachable: Bool { return reachability?.connection ?? .none != .none }
     
     let logRequest = true
     
-    public enum POSTDataType {
-        case json, formData
-    }
-    
-    public var prefferedPostDataType: POSTDataType = .json
+    public var defaultEncoding: ParameterEncoding = URLEncoding.default
     
     public static let `default` = NetworkManager()
     
@@ -47,18 +26,12 @@ public class NetworkManager: NSObject {
     
     public var logConfiguration: (url: Bool, headers: Bool, body: Bool) = (true, false, true)
     
-    override init() {
-        super.init()
-        
-        initReachibility()
+    @discardableResult public class func request(_ url: URLConvertible, method: HTTPMethod = .get, parameters: [String: Any]? = nil, encoding: ParameterEncoding? = nil, httpHeaderFields: [String: String]? = nil, complete: ((NetworkResponse) -> Void)? = nil) -> DataRequest? {
+        return NetworkManager.default.request(url, method: method, parameters: parameters, encoding: encoding, httpHeaderFields: httpHeaderFields, complete: complete)
     }
     
-    @discardableResult public class func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, downloadProgress: ((Float) -> Void)? = nil, testResponse: TestResponse? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
-        return NetworkManager.default.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody, downloadProgress: downloadProgress, complete: complete)
-    }
-    
-    public class func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {
-        return NetworkManager.default.upload(url, getParameters: getParameters, parameters: parameters, files: files, httpHeaderFields: httpHeaderFields, uploadProgress: uploadProgress, downloadProgress: downloadProgress, beginUploading: beginUploading, complete: complete)
+    public class func upload(_ url: URLConvertible, parameters: [String: Any]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((UploadRequest?, Error?) -> Void)? = nil, complete: ((NetworkResponse) -> Void)? = nil) {
+        return NetworkManager.default.upload(url, parameters: parameters, files: files, httpHeaderFields: httpHeaderFields, uploadProgress: uploadProgress, downloadProgress: downloadProgress, beginUploading: beginUploading, complete: complete)
     }
     
     /**
@@ -69,49 +42,40 @@ public class NetworkManager: NSObject {
      - parameter parameters: Request Body parameters
      - parameter complete:   completion closure
      */
-    func request(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, downloadProgress: ((Float) -> Void)? = nil, testResponse: TestResponse? = nil, complete: ((Response) -> Void)? = nil) -> NetworkRequest? {
+    func request(_ url: URLConvertible, method: HTTPMethod = .get, parameters: [String: Any]? = nil, encoding: ParameterEncoding? = nil, httpHeaderFields: [String: String]? = nil, complete: ((NetworkResponse) -> Void)? = nil) -> DataRequest? {
         
-        if !isReachable {
-            complete?(noInternetConnectionResponse)
-            return nil
-        }
-
-        let request = constructRequestForMethod(
-            method,
-            url: url,
-            getParameters: getParameters,
-            parameters: parameters,
-            postDataType: postDataType ?? prefferedPostDataType,
-            httpHeaderFields: httpHeaderFields,
-            httpBody: httpBody
-        )
+        guard let reachability = self.reachability, reachability.connection != .none else { return nil }
         
-        if let testResponse = testResponse {
-            let httpResponse = HTTPURLResponse(url: request.url!, statusCode: testResponse.statusCode, httpVersion: nil, headerFields: nil)
-            let resp = self.complete(request, response: httpResponse, JSON: testResponse.result, error: nil)
-            complete?(resp)
-            return nil
-        } else {
-            let req = Alamofire.request(request)
-            req.downloadProgress { (p) in
-                downloadProgress?(Float(p.fractionCompleted))
-            }
-            req.responseJSON { (response) in
-                let resp = self.complete(request, response: response.response, JSON: response.result.value, error: response.result.error)
-                complete?(resp)
-            }
-            return NetworkRequest(_request: req)
+        let encoding = encoding ?? defaultEncoding
+        
+        guard let urlRequest = try? URLRequest(url: url, method: method) else { return nil }
+        guard var encodedUrlRequest = try? encoding.encode(urlRequest, with: parameters) else { return nil }
+        
+        for (key, value) in authHttpHeaderFields {
+            encodedUrlRequest.setValue(value, forHTTPHeaderField: key)
         }
+        
+        for (key, value) in httpHeaderFields ?? [:] {
+            encodedUrlRequest.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        #if DEBUG
+        log(encodedUrlRequest)
+        #endif
+        
+        let dataRequest = Alamofire.request(encodedUrlRequest)
+        
+        dataRequest.responseJSON { (dataResponse) in
+            let networkResponse = NetworkResponse(dataResponse: dataResponse)
+            complete?(networkResponse)
+        }
+        
+        return dataRequest
     }
     
-    func upload(_ url: String, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((NetworkRequest?, ResponseError?) -> Void)? = nil, complete: ((Response) -> Void)? = nil) {
+    func upload(_ url: URLConvertible, parameters: [String: Any]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((UploadRequest?, Error?) -> Void)? = nil, complete: ((NetworkResponse) -> Void)? = nil) {
         
-        if !isReachable {
-            complete?(noInternetConnectionResponse)
-            return
-        }
-        
-        let urlString = build(url: url, getParameters: getParameters)
+        guard let reachability = self.reachability, reachability.connection != .none else { return }
         
         Alamofire.upload(multipartFormData: { multipart in
             
@@ -132,144 +96,24 @@ public class NetworkManager: NSObject {
                 }
             }
             
-        }, usingThreshold: 0, to: urlString, method: .post, headers: authHttpHeaderFields, encodingCompletion: { (encodingResult) in
+        }, usingThreshold: 0, to: url, method: .post, headers: authHttpHeaderFields, encodingCompletion: { (encodingResult) in
             switch encodingResult {
-            case .success(let upload, _, _):
-                upload.responseJSON { response in
-                    let resp = self.complete(response.request, response: response.response, JSON: response.result.value, error: response.result.error)
-                    complete?(resp)
+            case .success(let uploadRequest, _, _):
+                uploadRequest.responseJSON { (dataResponse) in
+                    let networkResponse = NetworkResponse(dataResponse: dataResponse)
+                    complete?(networkResponse)
                 }
-                upload.uploadProgress(closure: { (p) in
+                uploadRequest.uploadProgress(closure: { (p) in
                     uploadProgress?(Float(p.fractionCompleted))
                 })
-                upload.downloadProgress { (p) in
+                uploadRequest.downloadProgress { (p) in
                     downloadProgress?(Float(p.fractionCompleted))
                 }
-                beginUploading?(NetworkRequest(_request: upload), nil)
+                beginUploading?(uploadRequest, nil)
             case .failure(let encodingError):
-                beginUploading?(nil, ResponseError(error: encodingError.localizedDescription))
+                beginUploading?(nil, encodingError)
             }
         })
-    }
-    
-    fileprivate var noInternetConnectionResponse: Response {
-        let resp = Response(URLRequest: nil, response: nil)
-        resp.error = .noInternetConnection
-        return resp
-    }
-    
-    /**
-     Request complete processor
-     
-     - parameter request:  URLRequest
-     - parameter response: NSHTTPURLResponse
-     - parameter JSON:     Response object
-     - parameter error:    NSError
-     - parameter complete: closure
-     */
-    fileprivate func complete(_ request: URLRequest?, response: HTTPURLResponse?, JSON: Any?, error: Error?) -> Response {
-        
-        let _response = Response(URLRequest: request, response: response)
-        
-        if let status = response?.statusCode {
-            
-            _response.statusCode = status
-            
-            switch status {
-            case 200...226 :
-                _response.JSON = JSON
-                return _response
-            default:
-                _response.error = self.getError(JSON)
-                _response.error?.statusCode = status
-                return _response
-            }
-        }
-        
-        if let _nsError = error {
-            _response.error = ResponseError(error: _nsError.localizedDescription)
-        } else if _response.error == nil {
-            _response.error = ResponseError(error: "Unknown \(response!.statusCode)")
-        }
-        
-        _response.error?.statusCode = response?.statusCode ?? 0
-        
-        return _response
-    }
-    
-    /**
-     Construct URLRequest for perform request
-     
-     - parameter method:     HTTP Method
-     - parameter url:        Request URL
-     - parameter parameters: Request Body parameters
-     
-     - returns: URLRequest object
-     */
-    fileprivate func constructRequestForMethod(_ method: HTTPMethod, url: String, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil) -> URLRequest {
-        
-        let urlString = build(url: url, getParameters: getParameters)
-        
-        let url = URL(string: urlString)!
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-        
-        if let httpBody = httpBody {
-            request.httpBody = httpBody
-        } else {
-            switch postDataType {
-            case .json:
-                fillParametersForJSONDataType(parameters, toRequest: &request)
-            case .formData:
-                fillParametersForFormDataType(parameters, toRequest: &request)
-            }
-        }
-        
-        buildhttpHeaderFields(&request, httpHeaderFields: httpHeaderFields)
-        
-        if logRequest {
-            log(request)
-        }
-        
-        request.cachePolicy = .reloadIgnoringCacheData
-        
-        return request
-    }
-    
-    fileprivate func build(url: String, getParameters: [String: Any?]?) -> String {
-        var completeURL = url
-        
-        completeURL = url + "?"
-        
-        if let getParameters = getParameters {
-            let safegetParameters = removeNilValues(dictionary: getParameters)
-            let serializer = DictionarySerializer(dict: safegetParameters)
-            completeURL += serializer.getParametersInFormEncodedString()
-        }
-        
-        completeURL = completeURL.trimmingCharacters(in: CharacterSet(charactersIn: "&?"))
-        
-        return completeURL
-    }
-    
-    fileprivate func fillParametersForJSONDataType(_ parameters: [String: Any]?, toRequest request: inout URLRequest) {
-        guard let parameters = parameters else { return }
-        do {
-            request.httpBody = try JSONSerialization.data(
-                withJSONObject: parameters,
-                options: [.prettyPrinted]
-            )
-        } catch _ {
-            request.httpBody = nil
-        }
-    }
-    
-    fileprivate func fillParametersForFormDataType(_ parameters: [String: Any]?, toRequest request: inout URLRequest) {
-        guard let parameters = parameters else { return }
-        let serializer = DictionarySerializer(dict: parameters)
-        let string = serializer.getParametersInFormEncodedString()
-        request.httpBody = string.data(using: .utf8)
-        request.addValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
     }
     
     fileprivate func log(_ request: URLRequest) {
@@ -292,91 +136,6 @@ public class NetworkManager: NSObject {
         }
         
         print(logs.joined(separator: "\n\n"))
-    }
-    
-    /**
-     Build HTTP header fields for mutable url request
-     
-     - parameter mutableURLRequest: URLRequest
-     - parameter httpHeaderFields:  HTTP Header Fields
-     - parameter tokenPolicy:       case of NetworkManagerTokenPolicy enum
-     */
-    fileprivate func buildhttpHeaderFields(_ request: inout URLRequest, httpHeaderFields: [String: String]?) {
-        
-        let lang = NSLocalizedString("lang", comment: "")
-        
-        request.setValue(lang, forHTTPHeaderField: "Accept-Language")
-        
-        for (key, value) in authHttpHeaderFields {
-            request.setValue(value, forHTTPHeaderField: key)
-        }
-        
-        if let httpHeaderFields = httpHeaderFields {
-            for item in httpHeaderFields {
-                request.setValue(item.1, forHTTPHeaderField: item.0)
-            }
-        }
-        
-        request.timeoutInterval = 30
-    }
-    
-    /**
-     Get Error object from server response object
-     
-     - parameter JSON: server response object
-     
-     - returns: Error object with NetworkManagerError and localized description
-     */
-    fileprivate func getError(_ json: Any?) -> ResponseError? {
-        
-        var error = "", errorDescription = ""
-        
-        if let json = json as? [String: Any] {
-            if let rawError = json["Error"] as? String {
-                error = rawError
-            } else if let rawErrorCode = json["ErrorCode"] as? String {
-                error = rawErrorCode
-            }
-            
-            if let rawErrorDescription = json["ErrorDescription"] as? String {
-                errorDescription = rawErrorDescription
-            } else if let rawErrorMessage = json["ErrorMessage"] as? String {
-                errorDescription = rawErrorMessage
-            }
-            
-        }
-        
-        let e = ResponseError(error: error, localizedDescription: errorDescription)
-        e.JSON = json
-        
-        return e
-    }
-
-    func initReachibility() {
-        
-        guard let reachability = Reachability() else { return }
-        
-        reachability.whenReachable = { reachability in
-            DispatchQueue.main.sync {
-                if reachability.isReachableViaWiFi {
-                    print("Reachable via WiFi")
-                } else {
-                    print("Reachable via Cellular")
-                }
-            }
-        }
-        
-        reachability.whenUnreachable = { reachability in
-            DispatchQueue.main.sync {
-                print("Not reachable")
-            }
-        }
-        
-        do {
-            try reachability.startNotifier()
-        } catch {
-            print("Unable to start notifier")
-        }
     }
     
     public func setAuthHeader(value: String, key: String) {

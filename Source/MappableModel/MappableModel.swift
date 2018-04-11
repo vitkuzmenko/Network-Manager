@@ -83,23 +83,23 @@ open class MappableModel: Mappable, CustomStringConvertible, IdentifierHolder, E
     
 }
 
-extension Response {
+extension NetworkResponse {
     
     open func map<T: MappableModel>(path: String? = nil) -> T? {
         if let path = path {
-            let dict = JSON as? [String: Any]
+            let dict = value as? [String: Any]
             return Mapper<T>().map(JSONObject: dict?[path])
         } else {
-            return Mapper<T>().map(JSONObject: JSON)
+            return Mapper<T>().map(JSONObject: value)
         }
     }
     
     open func mapArray<T: MappableModel>(path: String? = nil) -> [T]? {
         if let path = path {
-            let dict = JSON as? [String: Any]
+            let dict = value as? [String: Any]
             return Mapper<T>().mapArray(JSONObject: dict?[path])
         } else {
-            return Mapper<T>().mapArray(JSONObject: JSON)
+            return Mapper<T>().mapArray(JSONObject: value)
         }
     }
     
@@ -107,41 +107,22 @@ extension Response {
 
 extension NetworkManager {
     
-    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, mapArrayPath: String? = nil, complete: (([T]?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
-        return NetworkManager.default.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody) { respose in
-            complete?(respose.mapArray(path: mapArrayPath), respose.error)
+    @discardableResult public class func mappableRequest<T: MappableModel>(_ url: URLConvertible, method: HTTPMethod = .get, parameters: [String: Any]? = nil, encoding: ParameterEncoding? = nil, httpHeaderFields: [String: String]? = nil, mapPath: String? = nil, complete: (([T]?, Error?) -> Void)? = nil) -> DataRequest? {
+        return NetworkManager.default.request(url, method: method, parameters: parameters, httpHeaderFields: httpHeaderFields) { response in
+            complete?(response.mapArray(path: mapPath), response.error)
         }
     }
     
-    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, complete: ((T?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
-        return NetworkManager.default.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody) { respose in
-            complete?(respose.map(), respose.error)
+    @discardableResult public class func mappableRequest<T: MappableModel>(_ url: URLConvertible, method: HTTPMethod = .get, parameters: [String: Any]? = nil, encoding: ParameterEncoding? = nil, httpHeaderFields: [String: String]? = nil, mapPath: String? = nil, complete: ((T?, Error?) -> Void)? = nil) -> DataRequest? {
+        return NetworkManager.default.request(url, method: method, parameters: parameters, httpHeaderFields: httpHeaderFields) { response in
+            complete?(response.map(path: mapPath), response.error)
         }
     }
     
-    @discardableResult public class func simpleRequest(_ url: String, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, complete: ((ResponseError?) -> Void)? = nil) -> NetworkRequest? {
-        return NetworkManager.default.request(url, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody) { respose in
-            complete?(respose.error)
+    @discardableResult public class func mappableRequest(_ url: URLConvertible, method: HTTPMethod = .get, parameters: [String: Any]? = nil, encoding: ParameterEncoding? = nil, httpHeaderFields: [String: String]? = nil, mapPath: String? = nil, complete: ((Error?) -> Void)? = nil) -> DataRequest? {
+        return NetworkManager.default.request(url, method: method, parameters: parameters, httpHeaderFields: httpHeaderFields) { response in
+            complete?(response.error)
         }
-    }
-    
-    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: URL, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, mapArrayPath: String? = nil, complete: (([T]?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
-        return NetworkManager.default.request(url.absoluteString, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody) { respose in
-            complete?(respose.mapArray(path: mapArrayPath), respose.error)
-        }
-    }
-    
-    @discardableResult public class func simpleRequest<T: MappableModel>(_ url: URL, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, complete: ((T?, ResponseError?) -> Void)? = nil) -> NetworkRequest? {
-        return NetworkManager.default.request(url.absoluteString, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody) { respose in
-            complete?(respose.map(), respose.error)
-        }
-    }
-    
-    @discardableResult public class func simpleRequest(_ url: URL, method: HTTPMethod = .get, getParameters: [String: Any?]? = nil, parameters: [String: Any]? = nil, postDataType: POSTDataType? = nil, httpHeaderFields: [String: String]? = nil, httpBody: Data? = nil, complete: ((ResponseError?) -> Void)? = nil) -> NetworkRequest? {
-        return NetworkManager.default.request(url.absoluteString, method: method, getParameters: getParameters, parameters: parameters, postDataType: postDataType, httpHeaderFields: httpHeaderFields, httpBody: httpBody) { respose in
-            complete?(respose.error)
-        }
-    }
-    
+    } 
 }
 

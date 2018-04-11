@@ -21,9 +21,7 @@
 		793219041EB86AA80059A0AE /* DictionarySerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793218FE1EB86AA80059A0AE /* DictionarySerializer.swift */; };
 		793219051EB86AA80059A0AE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793218FF1EB86AA80059A0AE /* Helpers.swift */; };
 		793219061EB86AA80059A0AE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219001EB86AA80059A0AE /* NetworkManager.swift */; };
-		793219071EB86AA80059A0AE /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219011EB86AA80059A0AE /* NetworkRequest.swift */; };
-		793219081EB86AA80059A0AE /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219021EB86AA80059A0AE /* Response.swift */; };
-		793219091EB86AA80059A0AE /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219031EB86AA80059A0AE /* ResponseError.swift */; };
+		793219081EB86AA80059A0AE /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219021EB86AA80059A0AE /* NetworkResponse.swift */; };
 		7932190D1EB86AC20059A0AE /* MappableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7932190C1EB86AC20059A0AE /* MappableModel.swift */; };
 		7978CDC61FC311600085A2D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7978CDC51FC311600085A2D4 /* AppDelegate.swift */; };
 		7978CDC81FC311600085A2D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7978CDC71FC311600085A2D4 /* ViewController.swift */; };
@@ -33,9 +31,8 @@
 		7978CDD31FC311EC0085A2D4 /* DictionarySerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793218FE1EB86AA80059A0AE /* DictionarySerializer.swift */; };
 		7978CDD41FC311EC0085A2D4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793218FF1EB86AA80059A0AE /* Helpers.swift */; };
 		7978CDD51FC311EC0085A2D4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219001EB86AA80059A0AE /* NetworkManager.swift */; };
-		7978CDD61FC311EC0085A2D4 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219011EB86AA80059A0AE /* NetworkRequest.swift */; };
-		7978CDD71FC311EC0085A2D4 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219021EB86AA80059A0AE /* Response.swift */; };
-		7978CDD81FC311EC0085A2D4 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219031EB86AA80059A0AE /* ResponseError.swift */; };
+		7978CDD71FC311EC0085A2D4 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793219021EB86AA80059A0AE /* NetworkResponse.swift */; };
+		79A74EB7207E00E100BA59D6 /* URLComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A74EB6207E00E100BA59D6 /* URLComposer.swift */; };
 		B4F21D21E61E6EB2FCF707E0 /* Pods_NetworkManagerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888150A977C935329BCE6890 /* Pods_NetworkManagerExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,9 +56,7 @@
 		793218FE1EB86AA80059A0AE /* DictionarySerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionarySerializer.swift; sourceTree = "<group>"; };
 		793218FF1EB86AA80059A0AE /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		793219001EB86AA80059A0AE /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		793219011EB86AA80059A0AE /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
-		793219021EB86AA80059A0AE /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		793219031EB86AA80059A0AE /* ResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
+		793219021EB86AA80059A0AE /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		7932190C1EB86AC20059A0AE /* MappableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableModel.swift; sourceTree = "<group>"; };
 		7978CDC31FC311600085A2D4 /* TVExampple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVExampple.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7978CDC51FC311600085A2D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +64,7 @@
 		7978CDCA1FC311600085A2D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7978CDCC1FC311600085A2D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7978CDCE1FC311600085A2D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79A74EB6207E00E100BA59D6 /* URLComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComposer.swift; sourceTree = "<group>"; };
 		8264796EE35CB08950A7DC6C /* Pods-NetworkManagerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkManagerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkManagerExample/Pods-NetworkManagerExample.release.xcconfig"; sourceTree = "<group>"; };
 		888150A977C935329BCE6890 /* Pods_NetworkManagerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkManagerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97065183DE2761F6548AE96D /* Pods-NetworkManagerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkManagerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkManagerExample/Pods-NetworkManagerExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -186,9 +182,8 @@
 				793218FE1EB86AA80059A0AE /* DictionarySerializer.swift */,
 				793218FF1EB86AA80059A0AE /* Helpers.swift */,
 				793219001EB86AA80059A0AE /* NetworkManager.swift */,
-				793219011EB86AA80059A0AE /* NetworkRequest.swift */,
-				793219021EB86AA80059A0AE /* Response.swift */,
-				793219031EB86AA80059A0AE /* ResponseError.swift */,
+				793219021EB86AA80059A0AE /* NetworkResponse.swift */,
+				79A74EB6207E00E100BA59D6 /* URLComposer.swift */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -288,7 +283,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Vitaliy Kuzmenko";
 				TargetAttributes = {
 					792A763C1DB4B2DD00BEEEF1 = {
@@ -403,13 +398,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Network Manager/Pods-Network Manager-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper-iOS/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-iOS/ReachabilitySwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-iOS/Reachability.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -476,13 +471,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-TVExampple/Pods-TVExampple-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper-tvOS/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-tvOS/ReachabilitySwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-tvOS/Reachability.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -513,13 +508,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-NetworkManagerExample/Pods-NetworkManagerExample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper-macOS/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-macOS/ReachabilitySwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-macOS/Reachability.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -533,15 +528,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79A74EB7207E00E100BA59D6 /* URLComposer.swift in Sources */,
 				793219041EB86AA80059A0AE /* DictionarySerializer.swift in Sources */,
 				7932190D1EB86AC20059A0AE /* MappableModel.swift in Sources */,
 				792A76431DB4B2DD00BEEEF1 /* ViewController.swift in Sources */,
 				793219061EB86AA80059A0AE /* NetworkManager.swift in Sources */,
 				792A76411DB4B2DD00BEEEF1 /* AppDelegate.swift in Sources */,
-				793219071EB86AA80059A0AE /* NetworkRequest.swift in Sources */,
 				793219051EB86AA80059A0AE /* Helpers.swift in Sources */,
-				793219081EB86AA80059A0AE /* Response.swift in Sources */,
-				793219091EB86AA80059A0AE /* ResponseError.swift in Sources */,
+				793219081EB86AA80059A0AE /* NetworkResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,10 +551,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7978CDD71FC311EC0085A2D4 /* Response.swift in Sources */,
-				7978CDD61FC311EC0085A2D4 /* NetworkRequest.swift in Sources */,
+				7978CDD71FC311EC0085A2D4 /* NetworkResponse.swift in Sources */,
 				7978CDD51FC311EC0085A2D4 /* NetworkManager.swift in Sources */,
-				7978CDD81FC311EC0085A2D4 /* ResponseError.swift in Sources */,
 				7978CDC81FC311600085A2D4 /* ViewController.swift in Sources */,
 				7978CDD31FC311EC0085A2D4 /* DictionarySerializer.swift in Sources */,
 				7978CDD21FC311EC0085A2D4 /* MappableModel.swift in Sources */,
@@ -620,6 +612,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -627,6 +620,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -676,6 +670,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -683,6 +678,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
