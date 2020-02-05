@@ -22,11 +22,11 @@ s.source_files  = "Source/*/*.swift"
 s.requires_arc = 'true'
 
 s.pod_target_xcconfig = {
-'SWIFT_VERSION' => '4.0',
+'SWIFT_VERSION' => '5.0',
 }
 
-s.dependency 'Alamofire', '~> 4.7.1'
-s.dependency 'ReachabilitySwift', '~> 4.1.0'
+s.dependency 'Alamofire', '~> 4.9.1'
+s.dependency 'ReachabilitySwift', '~> 5.0.0'
 s.dependency 'ObjectMapper'
 
 end
