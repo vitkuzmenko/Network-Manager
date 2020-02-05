@@ -248,8 +248,8 @@
 		0767E7E4AB3FC0719E07E90AD8CB6946 /* ReachabilitySwift-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ReachabilitySwift-macOS-umbrella.h"; path = "../ReachabilitySwift-macOS/ReachabilitySwift-macOS-umbrella.h"; sourceTree = "<group>"; };
 		09482247C282ADA786A87FA75C100033 /* Alamofire-tvOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "Alamofire-tvOS-Info.plist"; path = "../Alamofire-tvOS/Alamofire-tvOS-Info.plist"; sourceTree = "<group>"; };
 		0A75D52FE90F0274BC73DD19D06F4CBC /* DateTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DateTransform.swift; path = Sources/DateTransform.swift; sourceTree = "<group>"; };
-		0CCE9CB82B4F89C8E07ADCACFD3DB134 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E075BFF7CB3471E3FA90CD9162C9B52 /* Pods_NetworkManagerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkManagerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CCE9CB82B4F89C8E07ADCACFD3DB134 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = "Alamofire-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E075BFF7CB3471E3FA90CD9162C9B52 /* Pods_NetworkManagerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_NetworkManagerExample.framework; path = "Pods-NetworkManagerExample.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F684E3FF30DC19EE53E05B11B759B85 /* Alamofire-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-iOS-dummy.m"; sourceTree = "<group>"; };
 		100125DC920A9C44DAF39633D59EA6ED /* ObjectMapper-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ObjectMapper-macOS-umbrella.h"; path = "../ObjectMapper-macOS/ObjectMapper-macOS-umbrella.h"; sourceTree = "<group>"; };
 		13B43BB3D4DDEECBF44E4D5310AD2E51 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
@@ -272,13 +272,13 @@
 		305BA96B0CE9729377B97B64DF0E4892 /* Pods-TVExampple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TVExampple.debug.xcconfig"; sourceTree = "<group>"; };
 		314B26B76180FF52FAF1E265925C5A64 /* Reachability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Sources/Reachability.swift; sourceTree = "<group>"; };
 		35BEDB0D608FE7AB7FCE3B502443437E /* NSDecimalNumberTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NSDecimalNumberTransform.swift; path = Sources/NSDecimalNumberTransform.swift; sourceTree = "<group>"; };
-		373FD3F7A6937159DF83CA77FEE3668F /* Pods_Network_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Network_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A762CA851156B839B59C0215C737155 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B1A445A57C6FE99F504F8D345940BEA /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		373FD3F7A6937159DF83CA77FEE3668F /* Pods_Network_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Network_Manager.framework; path = "Pods-Network Manager.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A762CA851156B839B59C0215C737155 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ObjectMapper.framework; path = "ObjectMapper-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B1A445A57C6FE99F504F8D345940BEA /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ObjectMapper.framework; path = "ObjectMapper-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C18DF09FF929FA966A2D57D02B11DD9 /* Alamofire-tvOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Alamofire-tvOS.xcconfig"; path = "../Alamofire-tvOS/Alamofire-tvOS.xcconfig"; sourceTree = "<group>"; };
 		3CC0DE283499B79B4B6A5E9C9348FC22 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
 		3FFC06C567B35CAD4CD043030A5C132B /* ObjectMapper-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ObjectMapper-iOS.modulemap"; sourceTree = "<group>"; };
-		4021FEA3C5E55F18620F45D36CB136F5 /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4021FEA3C5E55F18620F45D36CB136F5 /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Reachability.framework; path = "ReachabilitySwift-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4351F6FD47B29548D50EE450C0ED6E15 /* Pods-Network Manager-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Network Manager-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4412D8C91EE4228CFCF581C7DD54BF48 /* ReachabilitySwift-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "ReachabilitySwift-macOS-Info.plist"; path = "../ReachabilitySwift-macOS/ReachabilitySwift-macOS-Info.plist"; sourceTree = "<group>"; };
 		4C2B0BB705C313E6150341B3B02898BC /* Alamofire-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Alamofire-iOS-Info.plist"; sourceTree = "<group>"; };
@@ -306,12 +306,12 @@
 		7718C3A8BABB07425C7E9EBB739FD2E1 /* ReachabilitySwift-tvOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ReachabilitySwift-tvOS.xcconfig"; path = "../ReachabilitySwift-tvOS/ReachabilitySwift-tvOS.xcconfig"; sourceTree = "<group>"; };
 		778165131A3B4D1305C61C2A212B1975 /* ReachabilitySwift-tvOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ReachabilitySwift-tvOS-dummy.m"; path = "../ReachabilitySwift-tvOS/ReachabilitySwift-tvOS-dummy.m"; sourceTree = "<group>"; };
 		77A430F4F714B60DE2C8FB285C69882F /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
-		7D384ECFAAE59EC3AEF8237E0B853438 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D384ECFAAE59EC3AEF8237E0B853438 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = "Alamofire-tvOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DF2ED9B5AE2CE236291715DDEF9AF36 /* Pods-NetworkManagerExample-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NetworkManagerExample-acknowledgements.plist"; sourceTree = "<group>"; };
 		7E8CA76B3FEF7B7AB231FF6FAE8BBE58 /* Pods-NetworkManagerExample-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NetworkManagerExample-umbrella.h"; sourceTree = "<group>"; };
 		7FF2EA5D9961A2EE69DE2A9B0A392BB9 /* ObjectMapper-tvOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ObjectMapper-tvOS.xcconfig"; path = "../ObjectMapper-tvOS/ObjectMapper-tvOS.xcconfig"; sourceTree = "<group>"; };
 		848F1B90FB290383EB3B95F5BE8588E3 /* ReachabilitySwift-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ReachabilitySwift-iOS-umbrella.h"; sourceTree = "<group>"; };
-		864D6D10FD7578B5D825CAB6B999C7C7 /* Pods_TVExampple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TVExampple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		864D6D10FD7578B5D825CAB6B999C7C7 /* Pods_TVExampple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TVExampple.framework; path = "Pods-TVExampple.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86BAD30119BE1464592F14127A6AC094 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
 		876CD1EE849071BFCBC0F5C14B23AADE /* ReachabilitySwift-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ReachabilitySwift-macOS-prefix.pch"; path = "../ReachabilitySwift-macOS/ReachabilitySwift-macOS-prefix.pch"; sourceTree = "<group>"; };
 		893B98E46F67C105E4FA51EABB616BCF /* ReachabilitySwift-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ReachabilitySwift-iOS-Info.plist"; sourceTree = "<group>"; };
@@ -322,12 +322,12 @@
 		8FCC4E8A5C00C01B0764A1071C9253EE /* ObjectMapper-tvOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ObjectMapper-tvOS-dummy.m"; path = "../ObjectMapper-tvOS/ObjectMapper-tvOS-dummy.m"; sourceTree = "<group>"; };
 		93431FCD68270464BD8818621F6A6DA0 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
 		950F8E3DA70EF53F418846064FEE07C1 /* Alamofire-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Alamofire-iOS.modulemap"; sourceTree = "<group>"; };
-		966AA42878212207687E9A2A4DBCD618 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		966AA42878212207687E9A2A4DBCD618 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = "Alamofire-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A38143272230FABBD573634FF569181 /* TransformType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransformType.swift; path = Sources/TransformType.swift; sourceTree = "<group>"; };
 		9A57593038514503628B462CB7C8669E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		9A5D897EF4D2835160F3ECB7F8B343CD /* DateFormatterTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DateFormatterTransform.swift; path = Sources/DateFormatterTransform.swift; sourceTree = "<group>"; };
 		9AE9E306BBBD8B7C6FE5C70DFB767427 /* ReachabilitySwift-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ReachabilitySwift-iOS-dummy.m"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A206E6DB200CC5659C967BA0EEF34747 /* Pods-Network Manager-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Network Manager-umbrella.h"; sourceTree = "<group>"; };
 		A3662F68BEA1FF12D3B9EA8452BA4E01 /* Pods-Network Manager-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Network Manager-Info.plist"; sourceTree = "<group>"; };
 		A769F9BF55D54B4E258D9D9A28FC1C3D /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
@@ -339,7 +339,7 @@
 		B3FD679A3F47701CDE393C1F74C9EEE0 /* Pods-NetworkManagerExample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NetworkManagerExample-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B732E12EE65A075FE55AAFB2F3893E7A /* ObjectMapper-tvOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ObjectMapper-tvOS-umbrella.h"; path = "../ObjectMapper-tvOS/ObjectMapper-tvOS-umbrella.h"; sourceTree = "<group>"; };
 		B7C4B396C70B7515766F8A3DF04F54FF /* ObjectMapper-tvOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "ObjectMapper-tvOS.modulemap"; path = "../ObjectMapper-tvOS/ObjectMapper-tvOS.modulemap"; sourceTree = "<group>"; };
-		B952938AC41CF1505E2FBA0F27655A6D /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B952938AC41CF1505E2FBA0F27655A6D /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ObjectMapper.framework; path = "ObjectMapper-tvOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEBD5B730FCB59C69B3B52B524E08086 /* SessionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Source/SessionManager.swift; sourceTree = "<group>"; };
 		BEEAA4C28CDE13086E995AA3F5961671 /* ReachabilitySwift-tvOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ReachabilitySwift-tvOS-prefix.pch"; path = "../ReachabilitySwift-tvOS/ReachabilitySwift-tvOS-prefix.pch"; sourceTree = "<group>"; };
 		C3772D01C142BE044EE956C3A1624172 /* ReachabilitySwift-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ReachabilitySwift-iOS.xcconfig"; sourceTree = "<group>"; };
@@ -357,12 +357,12 @@
 		CFAFF9A1FD5F7FE3261DD92A2508668E /* URLTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URLTransform.swift; path = Sources/URLTransform.swift; sourceTree = "<group>"; };
 		D11DBC20B9475FD412ED4BB258FEC089 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
 		D7260CC85B74A9EA80DFA4F7F01BEF80 /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/Operators.swift; sourceTree = "<group>"; };
-		D7B06622DF6E0A9FAF04FB2EBB19D7CA /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7B06622DF6E0A9FAF04FB2EBB19D7CA /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Reachability.framework; path = "ReachabilitySwift-tvOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D86BEE07DB48D7FF1FA6434C30FCD7BB /* ObjectMapper-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ObjectMapper-macOS-prefix.pch"; path = "../ObjectMapper-macOS/ObjectMapper-macOS-prefix.pch"; sourceTree = "<group>"; };
 		DC7E5D12CA5CDD3DD9FE30E6760A7037 /* CustomDateFormatTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomDateFormatTransform.swift; path = Sources/CustomDateFormatTransform.swift; sourceTree = "<group>"; };
 		E1170DF8EDBF104F3F3491E2BC0FFA36 /* ObjectMapper-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ObjectMapper-iOS-dummy.m"; sourceTree = "<group>"; };
 		E11B8E9375F09EB9E8632A6ABEF3BD1C /* ObjectMapper-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ObjectMapper-iOS-Info.plist"; sourceTree = "<group>"; };
-		E29C73AEC8F75331F690F05A2BE3E540 /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E29C73AEC8F75331F690F05A2BE3E540 /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Reachability.framework; path = "ReachabilitySwift-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2AA594D8AD5706473DA31E39F54F929 /* Pods-TVExampple-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TVExampple-frameworks.sh"; sourceTree = "<group>"; };
 		E3417446CE39F8E01325C14C291DE98C /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
 		E456DB1DF01C0D7B8264F078DA64CFD5 /* ReachabilitySwift-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ReachabilitySwift-iOS-prefix.pch"; sourceTree = "<group>"; };
@@ -520,6 +520,7 @@
 				CFAFF9A1FD5F7FE3261DD92A2508668E /* URLTransform.swift */,
 				20DB623E74B23059A40262561636F1C6 /* Support Files */,
 			);
+			name = ObjectMapper;
 			path = ObjectMapper;
 			sourceTree = "<group>";
 		};
@@ -625,6 +626,7 @@
 				314B26B76180FF52FAF1E265925C5A64 /* Reachability.swift */,
 				5B9DFBFE0F9501EED297A9FD66F93FF3 /* Support Files */,
 			);
+			name = ReachabilitySwift;
 			path = ReachabilitySwift;
 			sourceTree = "<group>";
 		};
@@ -714,6 +716,7 @@
 				B05779961FCE5C7DAC8340DCE424D089 /* Validation.swift */,
 				E058BF3789471812146028DD87A350D0 /* Support Files */,
 			);
+			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -1108,7 +1111,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1513,6 +1516,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C83677AEA1BF95A70472986F580AF13E /* Alamofire-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1577,6 +1581,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C83677AEA1BF95A70472986F580AF13E /* Alamofire-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1677,6 +1682,7 @@
 			baseConfigurationReference = 2F1893F8E2CE3BB8916C47BE2C0873F8 /* Pods-NetworkManagerExample.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1744,6 +1750,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 687B80CBC914C395B99D223327C946E1 /* ObjectMapper-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1807,6 +1814,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4FB86A5E3F24B1510A527C72F83524C1 /* ReachabilitySwift-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2003,6 +2011,7 @@
 			baseConfigurationReference = 4D0F456A649BD76EFD55AE1AD3FBF89A /* Pods-NetworkManagerExample.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2101,6 +2110,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 687B80CBC914C395B99D223327C946E1 /* ObjectMapper-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2293,6 +2303,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4FB86A5E3F24B1510A527C72F83524C1 /* ReachabilitySwift-macOS.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2407,7 +2418,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
