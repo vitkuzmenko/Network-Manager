@@ -280,13 +280,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Vitaliy Kuzmenko";
 				TargetAttributes = {
 					792A763C1DB4B2DD00BEEEF1 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 34YX679QH2;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 					};
 					79312DA11E62D29600E73D97 = {
@@ -302,7 +302,7 @@
 			};
 			buildConfigurationList = 792A76381DB4B2DD00BEEEF1 /* Build configuration list for PBXProject "Network Manager" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -377,7 +377,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Network Manager/Pods-Network Manager-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Network Manager/Pods-Network Manager-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper-iOS/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-iOS/Reachability.framework",
@@ -390,7 +390,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Network Manager/Pods-Network Manager-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Network Manager/Pods-Network Manager-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4B8B10E0BA8F3A5785B58949 /* [CP] Check Pods Manifest.lock */ = {
@@ -435,7 +435,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TVExampple/Pods-TVExampple-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-TVExampple/Pods-TVExampple-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper-tvOS/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-tvOS/Reachability.framework",
@@ -448,7 +448,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TVExampple/Pods-TVExampple-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TVExampple/Pods-TVExampple-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FAB28A5F1E97ED20B9A29F71 /* [CP] Embed Pods Frameworks */ = {
@@ -457,7 +457,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NetworkManagerExample/Pods-NetworkManagerExample-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-NetworkManagerExample/Pods-NetworkManagerExample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper-macOS/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-macOS/Reachability.framework",
@@ -470,7 +470,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NetworkManagerExample/Pods-NetworkManagerExample-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NetworkManagerExample/Pods-NetworkManagerExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -555,6 +555,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -613,6 +614,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -673,7 +675,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.genue.Network-Manager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -690,7 +692,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.genue.Network-Manager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

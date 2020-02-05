@@ -12,9 +12,9 @@ import Reachability
 
 public class NetworkManager: NSObject {
 
-    var reachability = Reachability()
+    var reachability = try? Reachability()
     
-    var isReachable: Bool { return reachability?.connection ?? .none != .none }
+    var isReachable: Bool { return reachability?.connection ?? .unavailable != .unavailable }
     
     let logRequest = true
     
@@ -44,7 +44,7 @@ public class NetworkManager: NSObject {
      */
     func request(_ url: URLConvertible, method: HTTPMethod = .get, parameters: [String: Any]? = nil, encoding: ParameterEncoding? = nil, httpHeaderFields: [String: String]? = nil, complete: ((NetworkResponse) -> Void)? = nil) -> DataRequest? {
         
-        guard let reachability = self.reachability, reachability.connection != .none else { return nil }
+        guard let reachability = self.reachability, reachability.connection != .unavailable else { return nil }
         
         let encoding = encoding ?? defaultEncoding
         
@@ -75,7 +75,7 @@ public class NetworkManager: NSObject {
     
     func upload(_ url: URLConvertible, parameters: [String: Any]? = nil, files: [String: (name: String, data: Data, mime: String)]? = nil, httpHeaderFields: [String: String]? = nil, uploadProgress: ((Float) -> Void)? = nil, downloadProgress: ((Float) -> Void)? = nil, beginUploading: ((UploadRequest?, Error?) -> Void)? = nil, complete: ((NetworkResponse) -> Void)? = nil) {
         
-        guard let reachability = self.reachability, reachability.connection != .none else { return }
+        guard let reachability = self.reachability, reachability.connection != .unavailable else { return }
         
         Alamofire.upload(multipartFormData: { multipart in
             

@@ -49,10 +49,6 @@ open class MappableModel: Mappable, CustomStringConvertible, IdentifierHolder, E
     
     public var id: Int = 0
     
-    open var hashValue: Int {
-        return id
-    }
-    
     public init() { }
     
     public var description: String {
@@ -79,6 +75,10 @@ open class MappableModel: Mappable, CustomStringConvertible, IdentifierHolder, E
         let json = object.toJSON()
         let map = Map(mappingType: .fromJSON, JSON: json)
         mapping(map: map)
+    }
+    
+    open func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
 }
