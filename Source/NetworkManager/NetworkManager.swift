@@ -8,7 +8,7 @@
 
 import ObjectMapper
 import Alamofire
-import ReachabilitySwift
+import Reachability
 
 extension ResponseError {
     static let noInternetConnection = ResponseError(error: NSLocalizedString("No internet connection", comment: ""), statusCode: -1)
@@ -29,9 +29,9 @@ public class NetworkManager: NSObject {
         
     }
     
-    var reachability = Reachability()
+    var reachability = try? Reachability()
     
-    var isReachable: Bool { return reachability?.isReachable ?? false }
+    var isReachable: Bool { return reachability?.connection ?? .unavailable != .unavailable }
     
     let logRequest = true
     
@@ -354,15 +354,15 @@ public class NetworkManager: NSObject {
 
     func initReachibility() {
         
-        guard let reachability = Reachability() else { return }
+        guard let reachability = try? Reachability() else { return }
         
         reachability.whenReachable = { reachability in
             DispatchQueue.main.sync {
-                if reachability.isReachableViaWiFi {
-                    print("Reachable via WiFi")
-                } else {
-                    print("Reachable via Cellular")
-                }
+//                if reachability.isReachableViaWiFi {
+//                    print("Reachable via WiFi")
+//                } else {
+//                    print("Reachable via Cellular")
+//                }
             }
         }
         

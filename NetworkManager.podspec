@@ -22,11 +22,11 @@ Pod::Spec.new do |s|
   s.requires_arc = 'true'
   
   s.pod_target_xcconfig = {
-    'SWIFT_VERSION' => '3.0',
+    'SWIFT_VERSION' => '4.0',
   }
   
-  s.dependency 'Alamofire', '~> 4.0'
-  s.dependency 'ReachabilitySwift', '~> 3.0'
-  s.dependency 'ObjectMapper'
+  s.dependency 'Alamofire', '~> 4.9.1'
+  s.dependency 'ReachabilitySwift', '~> 5.0.0'
+  s.dependency 'ObjectMapper', '3.5.1'
 
   end

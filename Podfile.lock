@@ -1,18 +1,24 @@
 PODS:
-  - Alamofire (4.5.1)
-  - ObjectMapper (3.0.0)
-  - ReachabilitySwift (3)
+  - Alamofire (4.9.1)
+  - ObjectMapper (3.5.1)
+  - ReachabilitySwift (5.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - ObjectMapper
   - ReachabilitySwift
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - ObjectMapper
+    - ReachabilitySwift
+
 SPEC CHECKSUMS:
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
-  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
 
 PODFILE CHECKSUM: 420afe9b3c60471ce4313bcabbdee5662b16f1cd
 
-COCOAPODS: 1.4.0.beta.1
+COCOAPODS: 1.8.4
