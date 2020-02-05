@@ -11,7 +11,7 @@ import Alamofire
 //import NetworkManager
 
 public protocol IdentifierHolder {
-    var id: Int { get set }
+    var id: Int64 { get set }
 }
 
 extension Array where Element : IdentifierHolder {
