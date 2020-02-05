@@ -16,14 +16,14 @@ public protocol IdentifierHolder {
 
 extension Array where Element : IdentifierHolder {
     
-    public func object(with id: Int) -> Element? {
+    public func object(with id: Int64) -> Element? {
         return filter({ (object) -> Bool in
             return object.id == id
         }).first
     }
     
-    public var ids: [Int] {
-        var ids = [Int]()
+    public var ids: [Int64] {
+        var ids = [Int64]()
         for item in self {
             ids.append(item.id)
         }
