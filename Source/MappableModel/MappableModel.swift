@@ -47,7 +47,7 @@ public func ==(l: MappableModel, r: MappableModel) -> Bool {
 
 open class MappableModel: Mappable, CustomStringConvertible, IdentifierHolder, Equatable, Hashable {
     
-    public var id: Int = 0
+    public var id: Int64 = 0
     
     public init() { }
     
